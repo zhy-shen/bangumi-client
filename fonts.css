@@ -5,6 +5,15 @@
   font-style: normal;
   font-weight: 500;
   src: url('./fonts/zen-kaku-gothic-new-v13-latin_japanese-500.woff2') format('woff2'), /* Super Modern Browsers */
-       url('./fonts/zen-kaku-gothic-new-v13-latin_japanese-500.woff') format('woff'), /* Modern Browsers */
-       url('./fonts/zen-kaku-gothic-new-v13-latin_japanese-500.ttf') format('truetype'); /* Safari, Android, iOS */
+       url('./fonts/zen-kaku-gothic-new-v13-latin_japanese-500.woff') format('woff'); /* Modern Browsers */
+}
+
+/* noto-sans-sc-500 - latin_chinese-simplified */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Noto Sans SC';
+  font-style: normal;
+  font-weight: 500;
+  src: url('./fonts/noto-sans-sc-v26-latin_chinese-simplified-500.woff2') format('woff2'), /* Chrome 36+, Opera 23+, Firefox 39+ */
+       url('./fonts/noto-sans-sc-v26-latin_chinese-simplified-500.woff') format('woff'); /* Chrome 5+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
