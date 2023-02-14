@@ -1,0 +1,17 @@
+.bangumi-result {
+  background: var(--main-color);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  padding: 15px;
+  max-width: 400px;
+
+  & > * {
+    margin: 5px 0;
+  }
+
+  & img {
+    border-radius: 10px;
+  }
+}

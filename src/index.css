@@ -1,0 +1,49 @@
+body {
+  background: var(--background-color);
+  margin: 0;
+  --max-content-width: calc(100vw - 40px);
+
+  /* color components */
+  --main-component: 71, 61%;
+  --l: 71%;
+  --l-t: 90%;
+  --l-dark: calc(var(--l) - 50%);
+  --hsl-main: var(--main-component), var(--l);
+  --hsl-dark: var(--main-component), var(--l-t);
+  
+  /* premade colors */
+  --main-color: hsl(var(--hsl-main));
+  --main-highlight-color: hsl(var(--hsl-dark));
+  --text-color: hsl(var(--hsl-dark));
+  --button-click-color: #e3e3e3;
+  --button-click-text-color: hsl(var(--hsl-main));
+
+  --main-color-half-opacity: hsla(var(--hsl-main), 0.75);
+  --text-color-half-opacity: hsla(var(--hsl-dark), 0.5);
+
+  --background-color: hsl(var(--main-component), calc(var(--l) - 10%));
+  --background-color-copy: hsl(var(--main-component), calc(var(--l) - 10%));
+  --drop-shadow: drop-shadow(1px 1px 2px hsla(var(--main-component), var(--l-dark), 0.2));
+  
+  -webkit-tap-highlight-color: transparent;
+
+  &.night-mode {
+    --main-color: 0, 0%;
+    --l: 21%;
+    --hsl-main: var(--main-component), var(--l);
+    --hsl-dark: var(--main-component), var(--l-t);
+  }
+
+  &.light {
+    --l-t: 10%;
+  }
+}
+
+html .jp {
+  font-family: 'Zen Kaku Gothic New', sans-serif;
+  font-weight: 500;
+}
+
+html * {
+  color: var(--text-color);
+}
