@@ -15,8 +15,8 @@ body {
   --main-color: hsl(var(--hsl-main));
   --main-highlight-color: hsl(var(--hsl-dark));
   --text-color: hsl(var(--hsl-dark));
-  --button-click-color: #e3e3e3;
-  --button-click-text-color: hsl(var(--hsl-main));
+  --click-color: #e3e3e3;
+  --click-text-color: hsl(var(--hsl-main));
 
   --main-color-half-opacity: hsla(var(--hsl-main), 0.75);
   --text-color-half-opacity: hsla(var(--hsl-dark), 0.7);
@@ -28,7 +28,7 @@ body {
   -webkit-tap-highlight-color: transparent;
 
   &.night-mode {
-    --main-color: 0, 0%;
+    --main-component: 0, 0%;
     --l: 21%;
     --hsl-main: var(--main-component), var(--l);
     --hsl-dark: var(--main-component), var(--l-t);

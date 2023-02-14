@@ -46,6 +46,12 @@
   height: 50px;
   border-radius: 30px;
   background: #FF000090;
+  transition: transform 0.3s, filter 0.3s;
+
+  &:hover {
+    transform: scale(1.1);
+    filter: var(--drop-shadow);
+  }
 }
 
 .info-header {

@@ -1,51 +1,9 @@
-.input-wrapper {
-  color: var(--text-color);
-  background-color: var(--background-color);
-  filter: var(--drop-shadow);
-  border-radius: 30px;
-  padding: 12px 15px;
-  display: flex;
-  margin: auto 0;
-  height: 35px;
-  overflow-x: auto;
-  overflow-y: hidden;
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;
-
-  & input {
-    margin: 0;
-    display: block;
-    color: var(--text-color);
-    white-space: pre;
-    padding-right: 2px;
-    position: relative;
-    
-    width: 100%;
-    background: none;
-    border: none;
-    outline: none;
-    font-size: 24px;
-    margin-top: -1px;
-    margin-left: 4px;
-    resize: none;
-
-    &::placeholder {
-      color: var(--text-color-half-opacity);
-    }
-  }
-}
-
-.input-box {
-  background: var(--main-color);
-  padding: 50px max(10vw, 30px);
-  filter: var(--drop-shadow);
-}
-
 .search-string {
   text-align-last: center;
 }
 
 .image {
+  aspect-ratio: 0.7;
   margin: 0;
 }
 

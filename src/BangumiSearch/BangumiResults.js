@@ -26,7 +26,6 @@ function BangumiResults({
       .then((response) => response.json())
       .then((data) => {
         setLocalResults(data.list);
-        console.log(data.list);
       });
   }, [inputText])
 
