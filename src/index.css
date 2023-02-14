@@ -19,7 +19,7 @@ body {
   --button-click-text-color: hsl(var(--hsl-main));
 
   --main-color-half-opacity: hsla(var(--hsl-main), 0.75);
-  --text-color-half-opacity: hsla(var(--hsl-dark), 0.5);
+  --text-color-half-opacity: hsla(var(--hsl-dark), 0.7);
 
   --background-color: hsl(var(--main-component), calc(var(--l) - 10%));
   --background-color-copy: hsl(var(--main-component), calc(var(--l) - 10%));

@@ -28,7 +28,9 @@ function App({
   }
 
   useEffect(() => {
-    setActive(true);
+    if (activeResult !== 0) {
+      setActive(true);
+    }
   }, [activeResult])
 
   return (
@@ -41,7 +43,7 @@ function App({
             value={text}
             onKeyDown={e => handleText(e)}
             onChange={e => handleText(e)}
-            placeholder="input here (kanji / hiragana / katagana)"
+            placeholder="Search..."
             spellCheck="false"
           />
         </div>
@@ -55,8 +57,9 @@ function App({
       />
       {(id !== 0) &&
         <InfoPage
-          result={activeResult}
           id={id}
+          activeResult={activeResult}
+          setActiveResult={setActiveResult}
           isActive={active}
           setActive={setActive}
         />

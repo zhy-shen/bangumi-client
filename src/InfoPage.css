@@ -2,39 +2,46 @@
   position: fixed;
   display: grid;
   inset: 0;
-  width: max(90vw, 600px);
-  max-width: 600px;
-  height: fit-content;
-  padding: 40px;
-  border-radius: 50px;
   place-content: center;
-  background: var(--main-color-half-opacity);
-  box-shadow: 0px 0px 5px #00000020;
   margin: auto;
   opacity: 0;
-  backdrop-filter: blur(25px);
-  transition: transform 0.5s, backdrop-filter 0.5s, opacity 0.5s;
-
+  transform: scale(0.7);
+  transition: transform 0.3s, backdrop-filter 0.3s, opacity 0.3s;
 
   &.visible {
     z-index: 100;
     opacity: 1;
+    transform: scale(1);
   }
 
   &:not(.visible) {
     pointer-events: none;
   }
+
+  &.visible .interaction-blocker {
+    position: fixed;
+    display: grid;
+    inset: 0;
+    z-index: -1;
+    touch-action: none;
+  }
 }
 
 .info-wrapper {
+  background: var(--main-color-half-opacity);
+  box-shadow: 0px 0px 5px #00000020;
+  backdrop-filter: blur(25px);
+  max-width: 600px;
+  padding: 40px;
+  border-radius: 50px;
   position: relative;
 }
 
 .close-button {
   cursor: pointer;
   position: absolute;
-  right: -20px;
-  top: -20px;
+  right: 25px;
+  top: 25px;
   width: 50px;
   height: 50px;
   border-radius: 30px;

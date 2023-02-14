@@ -28,15 +28,32 @@
     margin-top: -1px;
     margin-left: 4px;
     resize: none;
+
+    &::placeholder {
+      color: var(--text-color-half-opacity);
+    }
   }
 }
 
 .input-box {
   background: var(--main-color);
-  padding: 50px 100px;
+  padding: 50px max(10vw, 30px);
   filter: var(--drop-shadow);
 }
 
 .search-string {
   text-align-last: center;
+}
+
+.image {
+  margin: 0;
+}
+
+img {
+  aspect-ratio: 0.7;
+  object-fit: cover;
+  border-radius: 10px;
+  margin: 0;
+  width: 100%;
+  height: min(50vh, 300px);
 }

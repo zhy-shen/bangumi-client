@@ -1,7 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CompressionPlugin = require("compression-webpack-plugin");
 
 const config = {
   resolve: {
@@ -30,7 +29,6 @@ const config = {
     new webpack.ProvidePlugin({
       process: 'process/browser',
     }),
-    new CompressionPlugin()
   ],
   experiments: {
     topLevelAwait: true
