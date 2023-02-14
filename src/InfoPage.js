@@ -37,21 +37,18 @@ function InfoPage({
       <div className="info-wrapper">
         <div className="close-button" onClick={(e) => close(e)}></div>
         {(data.id !== id) ?
-          <React.Fragment key="simple">
-            <img async src={result.images.common} />
-            <h2 className="jp">{result.name}</h2>
-            <h3>{result.name_cn}</h3>
-            <h3>{result.id}</h3>
-          </React.Fragment>
+          <h1>Loading...</h1>
           :
           <React.Fragment key="full">
-            <img async src={result.images.common} />
-            <h2 className="jp">
-              {data.name}
-            </h2>
-            <h3>
-              {data.name_cn}
-            </h3>
+            <div className="info-header">
+              <img async src={result.images.common} />
+              <h2 className="jp">
+                {data.name}
+              </h2>
+              <h3>
+                {data.name_cn}
+              </h3>
+            </div>
             <p className="summary">
               {data.summary}
             </p>

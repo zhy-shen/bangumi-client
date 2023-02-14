@@ -12,10 +12,20 @@ function App({
 
 }) {
   const [inputText, setInputText] = useState(textArray.random());
+  const [text, setText] = useState(inputText);
   const [results, setResults] = useState({});
   const [activeResult, setActiveResult] = useState(0);
   const [active, setActive] = useState(0);
   const [id, setID] = useState(0);
+
+  function handleText(e) {
+    console.log(e)
+    if (e.key === "Enter") {
+      setInputText(text);
+      console.log(e.target.value)
+    };
+    setText(e.target.value);
+  }
 
   useEffect(() => {
     setActive(true);
@@ -23,7 +33,20 @@ function App({
 
   return (
     <div className="main">
-      <h1>{inputText}</h1>
+      <div className="input-box">
+        <div className="input-wrapper">
+          <input
+            label="self-input"
+            id="input-box"
+            value={text}
+            onKeyDown={e => handleText(e)}
+            onChange={e => handleText(e)}
+            placeholder="input here (kanji / hiragana / katagana)"
+            spellCheck="false"
+          />
+        </div>
+      </div>
+      <h1 className="search-string">{inputText}</h1>
       <BangumiResults
         inputText={inputText}
         setActive={setActiveResult}
