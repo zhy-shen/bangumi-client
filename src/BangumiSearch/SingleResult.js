@@ -17,7 +17,7 @@ function SingleResult({
 
   return (
     <div className="bangumi-result" onClick={() => openResult()}>
-      <img async src={result.images.common} />
+      <img alt={result.name} async src={result.images.common} />
       <h2 className="jp">{result.name}</h2>
       <h3>{result.name_cn}</h3>
       <h3>{result.id}</h3>

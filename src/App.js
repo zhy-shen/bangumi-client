@@ -46,7 +46,7 @@ function App({
           />
         </div>
       </div>
-      <h1 className="search-string">{inputText}</h1>
+      <h1 className="search-string jp">{inputText}</h1>
       <BangumiResults
         inputText={inputText}
         setActive={setActiveResult}
