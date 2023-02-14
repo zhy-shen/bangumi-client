@@ -2,9 +2,10 @@
   position: fixed;
   display: grid;
   inset: 0;
-  width: max(600px, 80vw);
+  width: max(90vw, 600px);
+  max-width: 600px;
   height: fit-content;
-  padding: 50px;
+  padding: 40px;
   border-radius: 50px;
   place-content: center;
   background: var(--main-color-half-opacity);
@@ -14,7 +15,6 @@
   backdrop-filter: blur(25px);
   transition: transform 0.5s, backdrop-filter 0.5s, opacity 0.5s;
 
-  max-width: 60vw;
 
   &.visible {
     z-index: 100;
@@ -43,5 +43,5 @@
 
 .info-header {
   display: flex;
-  
+  gap: 20px;
 }

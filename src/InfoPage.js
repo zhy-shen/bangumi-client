@@ -42,19 +42,21 @@ function InfoPage({
           <React.Fragment key="full">
             <div className="info-header">
               <img async src={result.images.common} />
-              <h2 className="jp">
-                {data.name}
-              </h2>
-              <h3>
-                {data.name_cn}
-              </h3>
+              <div className="info-header-text">
+                <h2 className="jp">
+                  {data.name}
+                </h2>
+                <h3>
+                  {data.name_cn}
+                </h3>
+                <h3>
+                  {data.id}
+                </h3>
+              </div>
             </div>
             <p className="summary">
               {data.summary}
             </p>
-            <h3>
-              {data.id}
-            </h3>
           </React.Fragment>
         }
       </div>
