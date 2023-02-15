@@ -151,13 +151,13 @@ function ColorControl() {
       <div className="mode-toggle">
         <Button char="Mode" display={svg.sunMoon} onClick={modeClick} />
       </div>
-      <div className="color-input">
+      <div className="color-input jp">
         <label>HEX: #</label>
         <input
           id="color"
           type="text"
           enterKeyHint="done"
-          className="input-box jp"
+          className="input-box"
           autoComplete="off"
           placeholder={originalColor}
           value={color}
