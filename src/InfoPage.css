@@ -45,6 +45,7 @@
 
   @media screen and (max-width: 650px) {
     background: var(--main-color);
+    backdrop-filter: none;
     width: 100vw;
     height: 100vh;
     border-radius: 0;
@@ -81,12 +82,14 @@
         & .info-header-text {
           padding: 0 max(5vw, 20px);
           background: var(--main-color-half-opacity);
+          backdrop-filter: blur(25px);
         }
       }
   
       & .infobox {
         padding: 0 max(5vw, 20px);
         background: var(--main-color-half-opacity);
+        backdrop-filter: blur(25px);
       }
     }
   }
