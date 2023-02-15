@@ -106,7 +106,6 @@ function ColorControl() {
   }
 
   function hslToHex(color) {
-    console.log(color);
     const regexp = /hsl\(\s*(\d+)\s*,\s*(\d+(?:\.\d+)?%)\s*,\s*(\d+(?:\.\d+)?%)\)/g;
     const res = regexp.exec(color).slice(1);
 
@@ -144,7 +143,6 @@ function ColorControl() {
 
   useEffect(() => {
     reselect();
-    console.log(window.getComputedStyle(body).getPropertyValue('--main-color'));
     setOriginalColor(hslToHex(window.getComputedStyle(body).getPropertyValue('--main-color')));
   }, []);
 

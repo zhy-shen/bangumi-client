@@ -6,6 +6,9 @@ import InputBox from "./InputBox";
 import ColorControl from "./Common/ColorControl";
 import "./App.css"
 
+import Button from "./Common/Button"
+import svgs from "./Common/svgs"
+
 Array.prototype.random = function () {
   return this[Math.floor((Math.random() * this.length))];
 }
@@ -28,11 +31,14 @@ function App({
 
   return (
     <div className="main">
-      <InputBox
-        text={text}
-        setText={setText}
-        setInputText={setInputText}
-      />
+      <div className="header">
+        <InputBox
+          text={text}
+          setText={setText}
+          setInputText={setInputText}
+        />
+        <Button key="expand" text={""} setText={""} char="Expand" display={svgs.expand} />
+      </div>
       <h1 className="search-string jp">{inputText}</h1>
       <BangumiResults
         inputText={inputText}

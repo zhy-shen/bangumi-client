@@ -35,6 +35,13 @@
   padding: 40px;
   border-radius: 50px;
   position: relative;
+
+
+  & img,
+  & .image {
+    max-width: 100%;
+    aspect-ratio: unset;
+  }
 }
 
 .close-button {

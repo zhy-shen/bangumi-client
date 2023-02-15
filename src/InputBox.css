@@ -11,6 +11,8 @@
   overflow-y: hidden;
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;
+  flex-grow: 1;
+  max-width: 750px;
 
   & input {
     margin: 0;
@@ -35,8 +37,25 @@
   }
 }
 
-.input-box {
+.header {
   background: var(--main-color);
-  padding: 50px max(10vw, 30px);
+  padding: 50px 20px;
   filter: var(--drop-shadow);
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+
+  & button {
+    background-color: var(--background-color);
+    background-image: linear-gradient(to bottom right, var(--main-highlight-color) 49.5%, var(--background-color) 50%);
+
+    &.active {
+      --button-text-color: var(--background-color);
+      --background-color: var(--main-highlight-color);
+
+      & span {
+        color: var(--background-color-copy);
+      }
+    }
+  }
 }
