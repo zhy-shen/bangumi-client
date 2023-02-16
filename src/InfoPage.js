@@ -12,10 +12,10 @@ function InfoPage({
   const [localID, setLocalID] = useState('');
   const [data, setData] = useState(activeResult);
 
-  window.addEventListener('popstate', function() {
+  window.addEventListener('popstate', function () {
     window.history.pushState({}, '');
     close();
-  }, {once: true})
+  }, { once: true })
 
   function close(e) {
     setActiveResult(0);
@@ -75,7 +75,9 @@ function InfoPage({
           {(data.id == id) &&
             <React.Fragment key="full">
               <div className="info-header">
-                <div className="image"><img alt={data.name} async src={data.images.common} /></div>
+                <div className="image">
+                  <img alt={data.name} async src={data.images.common.replace(/^http:\/\//i, 'https://')} />
+                </div>
                 <div className="info-header-text">
                   <h2 className="jp">{data.name}</h2>
                   <h3>{data.name_cn}</h3>
