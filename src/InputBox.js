@@ -22,7 +22,7 @@ function InputBox({
       <input
         label="self-input"
         id="input-box"
-        enterKeyHint="done"
+        type="search"
         value={text}
         onKeyDown={e => handleText(e)}
         onChange={e => handleText(e)}
