@@ -52,7 +52,7 @@ function InfoPage({
       return Object.values(data.infobox).map((info) => {
         if (typeof info.value === 'object') {
           return <div className="info-fragment">
-            <h4 className="info-multi">{info.key}</h4>
+            <h4 className="info-name">{info.key}</h4>
             <div className="entry">
               {returnValues(info.value)}
             </div>
@@ -76,12 +76,12 @@ function InfoPage({
             <React.Fragment key="full">
               <div className="info-header">
                 <div className="image">
-                  <img alt={data.name} async src={data.images.common.replace(/^http:\/\//i, 'https://')} />
+                  <img alt={data.name} async src={data.images.large.replace(/^http:\/\//i, 'https://')} />
                 </div>
                 <div className="info-header-text">
-                  <h2 className="jp">{data.name}</h2>
-                  <h3>{data.name_cn}</h3>
-                  <h3>{data.id}</h3>
+                  <h1 className="jp">{data.name}</h1>
+                  <h2>{data.name_cn}</h2>
+                  <h2>SubjectID: {data.id}</h2>
                   <p className="summary">{data.summary}</p>
                 </div>
               </div>

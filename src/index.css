@@ -18,7 +18,7 @@ body {
   --click-color: #e3e3e3;
   --click-text-color: hsl(var(--hsl-main));
 
-  --main-color-half-opacity: hsla(var(--hsl-main), 0.75);
+  --main-color-half-opacity: hsla(var(--hsl-main), 0.6);
   --text-color-half-opacity: hsla(var(--hsl-dark), 0.7);
 
   --background-color: hsl(var(--main-component), calc(var(--l) - 10%));
@@ -49,4 +49,14 @@ html * {
   color: var(--text-color);
   font-family: 'Noto Sans SC', sans-serif;
   font-weight: 400;
+}
+
+h1 {
+  margin: 20px 0;
+  font-size: 28px;
+}
+
+h2 {
+  font-weight: 500;
+  margin: 10px 0;
 }

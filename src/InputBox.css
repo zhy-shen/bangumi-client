@@ -39,11 +39,14 @@
 
 .header {
   background: var(--main-color);
-  padding: 50px 20px;
+  padding: 20px;
   filter: var(--drop-shadow);
   display: flex;
   gap: 15px;
   justify-content: center;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 
   & button {
     background-color: var(--background-color);
