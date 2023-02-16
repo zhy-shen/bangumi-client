@@ -68,7 +68,8 @@
         flex-direction: column;
         
         & .image {
-          max-height: 40vh;
+          flex-basis: unset;
+          height: 60vh;
           position: sticky;
           z-index: -1;
           width: 100%;
@@ -80,16 +81,37 @@
         }
     
         & .info-header-text {
+          flex-basis: unset;
+          padding: 0 max(5vw, 20px);
+          /*
           padding: 0 max(5vw, 20px);
           background: var(--main-color-half-opacity);
           backdrop-filter: blur(25px);
+          */
+
+
+          position: relative;
+
+          &::before {
+            position:absolute;
+            content: " ";
+            width: 100%;
+            z-index: -1;
+            left: 0;
+            height: calc(max(100%, 140vw) + 20vh);
+            background: var(--main-color-half-opacity);
+            backdrop-filter: blur(25px);
+          }
         }
       }
   
       & .infobox {
         padding: 0 max(5vw, 20px);
+        /*
+        padding: 0 max(5vw, 20px);
         background: var(--main-color-half-opacity);
         backdrop-filter: blur(25px);
+        */
       }
     }
   }
@@ -151,7 +173,6 @@
 
     & .info-details {
       margin: 0;
-      margin-top: 2px;
     }
   }
 }

@@ -4,4 +4,8 @@
   flex-direction: row;
   flex-wrap: wrap;
   gap: 20px;
+
+  & .bangumi-result img {
+    width: 100%;
+  }
 }

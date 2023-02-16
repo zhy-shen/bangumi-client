@@ -12,6 +12,10 @@ function InfoPage({
   const [localID, setLocalID] = useState('');
   const [data, setData] = useState(activeResult);
 
+  window.addEventListener('popstate', function() {
+    window.history.pushState({}, '');
+    close();
+  }, {once: true})
 
   function close(e) {
     setActiveResult(0);
