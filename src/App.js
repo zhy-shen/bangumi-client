@@ -30,7 +30,7 @@ function App({
   }, [activeResult])
 
   return (
-    <div className="main">
+    <main>
       <div className="header">
         <InputBox
           text={text}
@@ -56,7 +56,7 @@ function App({
         />
       }
       <ColorControl />
-    </div>
+    </main>
   )
 }
 export default App;
