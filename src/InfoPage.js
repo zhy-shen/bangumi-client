@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import svgs from "./Common/svgs"
 import "./InfoPage.css"
 
 function InfoPage({
@@ -22,28 +23,9 @@ function InfoPage({
     setActive(false);
   }
 
-  useEffect(() => {
-    if (id !== 0) {
-      setLocalID(id);
-      const url = "https://api.bgm.tv/v0/subjects/" + encodeURIComponent(id);
-      fetch(url)
-        .then((response) => response.json())
-        .then((data) => {
-          setData(data);
-        });
-    }
-  }, [id])
-
-  useEffect(() => {
-    console.log(data.id);
-    console.log(data.infobox);
-  }, [data])
-
   function returnValues(object) {
-    console.log(object)
     return object.map((entry) => {
-      console.log(entry)
-      return <p className="info-details">{Object.values(entry)[0]}</p>
+      return infoMarkup(Object.values(entry)[0]);
     })
   }
 
@@ -61,18 +43,45 @@ function InfoPage({
 
         return <div className="info-fragment">
           <h4 className="info-name">{info.key}</h4>
-          <p className="info-details">{info.value}</p>
+          {infoMarkup(info.value)}
         </div>
       });
     }
   }
 
+  //test for links
+  function infoMarkup(text) {
+    var urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+
+    if (urlRegex.test(text)) {
+      return <div className="info-details">
+        <a className="info-details" href={text} target="_blank" rel="noopener noreferrer">{text}</a>
+      </div>;
+    }
+
+    return <p className="info-details">{text}</p>;
+  }
+
+  useEffect(() => {
+    if (id !== 0) {
+      setLocalID(id);
+      const url = "https://api.bgm.tv/v0/subjects/" + encodeURIComponent(id);
+      fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+          setData(data);
+        });
+    }
+  }, [id])
+  
   return (
     <div className={"info-popup" + (isActive ? " visible" : "")}>
       <div className="info-wrapper">
         <div className="main-content">
-          <div className="close-button" onClick={(e) => close(e)}></div>
-          {(data.id == id) &&
+          <div className="close-button" onClick={(e) => close(e)}>{svgs.close}</div>
+          {(data.id !== id) ?
+            <h1>Loading...</h1>
+            :
             <React.Fragment key="full">
               <div className="info-header">
                 <div className="image">

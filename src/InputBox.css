@@ -8,9 +8,6 @@
   margin: auto 0;
   height: 35px;
   overflow-x: auto;
-  overflow-y: hidden;
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;
   flex-grow: 1;
   max-width: 750px;
 
@@ -42,13 +39,16 @@
   padding: 20px;
   filter: var(--drop-shadow);
   display: flex;
-  gap: 15px;
+  /* gap: 15px; */
   justify-content: center;
   position: sticky;
   top: 0;
   z-index: 1;
 
   & button {
+    /* hide the button until there is a use for it */
+    display: none;
+
     background-color: var(--background-color);
     background-image: linear-gradient(to bottom right, var(--main-highlight-color) 49.5%, var(--background-color) 50%);
 

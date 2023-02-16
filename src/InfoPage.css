@@ -4,14 +4,15 @@
   inset: 0;
   place-content: center;
   margin: auto;
-  opacity: 0;
-  transition: transform 0.3s, backdrop-filter 0.3s, opacity 0.3s;
+  opacity: 1;
+  pointer-events: none;
 
   &.visible {
     z-index: 100;
-    opacity: 1;
+    pointer-events: initial;
 
     & .info-wrapper {
+      opacity: 1;
       transform: scale(1);
     }
   }
@@ -39,9 +40,10 @@
   border-radius: 50px;
   position: relative;
   display: flex;
+  opacity: 0;
   
-  transition: transform 0.3s, backdrop-filter 0.3s, opacity 0.3s;
-  transform: scale(0.85);
+  transition: transform 0.2s, opacity 0.2s, backdrop-filter 0.2s;
+  transform: scale(0.95);
 
   @media screen and (max-width: 650px) {
     background: var(--main-color);
@@ -83,13 +85,6 @@
         & .info-header-text {
           flex-basis: unset;
           padding: 0 max(5vw, 20px);
-          /*
-          padding: 0 max(5vw, 20px);
-          background: var(--main-color-half-opacity);
-          backdrop-filter: blur(25px);
-          */
-
-
           position: relative;
 
           &::before {
@@ -98,7 +93,7 @@
             width: 100%;
             z-index: -1;
             left: 0;
-            height: calc(max(120%, 140vw) + max(20vw, 40vh));
+            height: calc(max(130%, 150vw));
             background: var(--main-color-half-opacity);
             backdrop-filter: blur(25px);
           }
@@ -107,11 +102,6 @@
   
       & .infobox {
         padding: 0 max(5vw, 20px);
-        /*
-        padding: 0 max(5vw, 20px);
-        background: var(--main-color-half-opacity);
-        backdrop-filter: blur(25px);
-        */
       }
     }
   }
@@ -143,15 +133,21 @@
   z-index: 5;
   right: 20px;
   top: 20px;
-  width: 40px;
-  height: 40px;
+  display: none;
+  padding: 12px;
   border-radius: 30px;
-  background: #FF000090;
   transition: transform 0.3s, filter 0.3s;
 
   @media screen and (max-width: 650px) {
+    display: block;
+    background: var(--main-color-half-opacity);
     right: 60px;
     top: 60px;
+  }
+
+  & svg {
+    width: 36px;
+    display: block;
   }
 
   &:hover {

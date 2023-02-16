@@ -15,7 +15,7 @@ if (parseFloat(window.getComputedStyle(document.body).getPropertyValue("--l")) >
 
 //initial load
 window.addEventListener("load", function() {
-  window.history.pushState({}, "")
+  window.history.pushState({}, "");
 })
 
 const root = ReactDOM.createRoot(document.getElementById("app"));

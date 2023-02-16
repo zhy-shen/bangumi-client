@@ -27,6 +27,8 @@ body {
   
   -webkit-tap-highlight-color: transparent;
 
+  overflow-y: overlay;
+
   &.night-mode {
     --main-component: 0, 0%;
     --l: 21%;
