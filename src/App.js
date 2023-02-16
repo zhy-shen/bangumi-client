@@ -18,10 +18,18 @@ function App({
 }) {
   const [inputText, setInputText] = useState(textArray.random());
   const [text, setText] = useState(inputText);
-  const [results, setResults] = useState({});
   const [activeResult, setActiveResult] = useState(0);
   const [active, setActive] = useState(0);
   const [id, setID] = useState(0);
+
+  //Search Options
+  const [advanced, setAdv] = useState(false);
+  const [category, setCategory] = useState(2);
+  const [count, setCount] = useState(5);
+
+  function changeSelect(event, set) {
+    set(event.target.value);
+  }
 
   useEffect(() => {
     if (activeResult !== 0) {
@@ -37,7 +45,30 @@ function App({
           setText={setText}
           setInputText={setInputText}
         />
-        <Button key="expand" text={""} setText={""} char="Expand" display={svgs.expand} />
+        <Button key="expand" text={advanced} setText={setAdv} char="Toggle" display={svgs.expand} />
+        <div className={"advanced-options" + ((advanced) ? " active" : "")}>
+          <div className="advanced-category">
+            <label htmlFor="category">Category</label>
+            <select name="category" id="category" onChange={(e) => changeSelect(e, setCategory)} value={category} >
+              <option value="1">Book</option>
+              <option value="2">Anime</option>
+              <option value="3">Music</option>
+              <option value="4">Game</option>
+              <option value="5">Real</option>
+            </select>
+          </div>
+
+          <div className="advanced-count">
+            <label htmlFor="category">Count</label>
+            <select name="category" id="category" onChange={(e) => changeSelect(e, setCount)} value={count} >
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="15">15</option>
+              <option value="20">20</option>
+              <option value="25">25</option>
+            </select>
+          </div>
+        </div>
       </div>
       <h1 className="search-string jp">{inputText}</h1>
       <BangumiResults
@@ -45,6 +76,8 @@ function App({
         setActive={setActiveResult}
         id={id}
         setID={setID}
+        category={category}
+        count={count}
       />
       {(id !== 0) &&
         <InfoPage

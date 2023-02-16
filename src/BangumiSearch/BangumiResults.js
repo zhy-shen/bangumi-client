@@ -5,7 +5,9 @@ import "./BangumiResults.css"
 function BangumiResults({
   inputText,
   setActive,
-  setID
+  setID,
+  category,
+  count,
 }) {
 
   const [localResults, setLocalResults] = useState('');
@@ -20,14 +22,18 @@ function BangumiResults({
   }
 
   useEffect(() => {
-    const url = "https://api.bgm.tv/search/subject/" + encodeURIComponent(inputText) + "?type=2&responseGroup=small&max_results=6";
+    const url = "https://api.bgm.tv/search/subject/" + encodeURIComponent(inputText) + "?type=" + encodeURIComponent(category) + "&responseGroup=small&max_results=" + encodeURIComponent(count);
+    console.log(url)
 
     fetch(url)
-      .then((response) => response.json())
+      .then((response) => (response) ? response.json() : new Error(response.status))
       .then((data) => {
         setLocalResults(data.list);
+      })
+      .catch((error) => {
+        console.log('error: ' + error);
       });
-  }, [inputText])
+  }, [inputText, category, count])
 
   return (
     <div className="results-wrapper">

@@ -10,12 +10,18 @@ function InfoPage({
   setActive,
 }) {
 
-  const [localID, setLocalID] = useState('');
+  const [localID, setLocalID] = useState("");
   const [data, setData] = useState(activeResult);
 
-  window.addEventListener('popstate', function () {
-    window.history.pushState({}, '');
+  window.addEventListener("popstate", function () {
+    window.history.pushState({}, "");
     close();
+  }, { once: true })
+
+  window.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") {
+      close();
+    }
   }, { once: true })
 
   function close(e) {
@@ -63,7 +69,7 @@ function InfoPage({
   }
 
   useEffect(() => {
-    if (id !== 0) {
+    if (id !== localID) {
       setLocalID(id);
       const url = "https://api.bgm.tv/v0/subjects/" + encodeURIComponent(id);
       fetch(url)
@@ -73,7 +79,7 @@ function InfoPage({
         });
     }
   }, [id])
-  
+
   return (
     <div className={"info-popup" + (isActive ? " visible" : "")}>
       <div className="info-wrapper">
@@ -95,6 +101,12 @@ function InfoPage({
                 </div>
               </div>
               <div className="infobox">
+                <div className="info-fragment">
+                  <h4 className="info-name">Source</h4>
+                  <div className="info-details">
+                    <a className="info-details" href={"https://bgm.tv/subject/" + data.id} target="_blank" rel="noopener noreferrer">{"https://bgm.tv/subject/" + data.id}</a>
+                  </div>
+                </div>
                 {infoBoxMarkup()}
               </div>
             </React.Fragment>}

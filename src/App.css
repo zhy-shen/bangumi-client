@@ -19,3 +19,49 @@ main:has(.info-popup.visible) {
   height: 100vh;
   overflow: hidden;
 }
+
+.advanced-options {
+  gap: 25px;
+  display: flex;
+  position: absolute;
+  bottom: 50%;
+  width: 100%;
+  justify-content: center;
+  transition: bottom 0.2s, opacity 0.2s;
+  opacity: 0;
+  z-index: -1;
+
+  & > div {
+    gap: 10px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+  }
+  
+  &.active {
+    bottom: 15px;
+    opacity: 1;
+  }
+
+  & label {
+    display: flex;
+  }
+
+  & select {
+    padding: 5px 10px;
+    background: var(--background-color);
+    color: var(--text-color);
+    border: none;
+    border-radius: 15px;
+
+    & option {
+      padding: 5px 10px;
+      border: none;
+      display: block;
+
+      &:hover {
+        background: red;
+      }
+    }
+  }
+}

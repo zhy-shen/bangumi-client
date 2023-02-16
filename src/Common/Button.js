@@ -19,7 +19,7 @@ function Button({
     "Paste",
     "Mode",
     "Translate",
-    "Expand",
+    "Toggle",
   ]
 
   function addChar() {
@@ -58,7 +58,7 @@ function Button({
     else if (spChar === "Mode") {
     }
 
-    else if (spChar === "Expand") {
+    else if (spChar === "Toggle") {
       setText(!text);
     }
 
