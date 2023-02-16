@@ -20,7 +20,7 @@ function BangumiResults({
   }
 
   useEffect(() => {
-    const url = "https://api.bgm.tv/search/subject/" + encodeURIComponent(inputText) + "?type=2&responseGroup=small&max_results=10";
+    const url = "https://api.bgm.tv/search/subject/" + encodeURIComponent(inputText) + "?type=2&responseGroup=small&max_results=6";
 
     fetch(url)
       .then((response) => response.json())

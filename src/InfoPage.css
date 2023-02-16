@@ -84,7 +84,7 @@
     
         & .info-header-text {
           flex-basis: unset;
-          padding: 0 max(5vw, 20px);
+          padding: 0 max(5vw, 20px) max(5vw, 20px);
           position: relative;
 
           &::before {
@@ -93,7 +93,7 @@
             width: 100%;
             z-index: -1;
             left: 0;
-            height: calc(max(130%, 150vw));
+            height: calc(max(120%, 140vw) + max(20vw, 20%));
             background: var(--main-color-half-opacity);
             backdrop-filter: blur(25px);
           }
@@ -122,7 +122,24 @@
     }
 
     & .info-header-text {
+      align-self: center;
       flex-basis: 60%;
+    }
+
+    
+
+    @media screen and (min-width: 650px) {
+      & .image {
+        position: sticky;
+        top: 0;
+        height: fit-content;
+      }
+
+      & .info-header-text {
+        & h1 {
+          margin-top: 5px;
+        }
+      }
     }
   }
 }
