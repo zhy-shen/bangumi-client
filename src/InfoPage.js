@@ -39,22 +39,22 @@ function InfoPage({
     console.log(data.infobox);
   }, [data])
 
-  function returnNames(names) {
-    console.log(names)
-    return names.map((name) => {
-      console.log(name)
-      return <p className="info-details">{Object.values(name)[0]}</p>
+  function returnValues(object) {
+    console.log(object)
+    return object.map((entry) => {
+      console.log(entry)
+      return <p className="info-details">{Object.values(entry)[0]}</p>
     })
   }
 
   function infoBoxMarkup() {
     if (data.infobox) {
       return Object.values(data.infobox).map((info) => {
-        if (info.key === "别名") {
+        if (typeof info.value === 'object') {
           return <div className="info-fragment">
-            <h4 className="info-name">别名</h4>
-            <div className="other-names">
-              {returnNames(info.value)}
+            <h4 className="info-multi">{info.key}</h4>
+            <div className="entry">
+              {returnValues(info.value)}
             </div>
           </div>
         }

@@ -98,9 +98,14 @@
             width: 100%;
             z-index: -1;
             left: 0;
-            height: calc(max(100%, 140vw) + 20vh);
+            height: calc(max(100%, 140vw) + max(20vw, 40vh));
             background: var(--main-color-half-opacity);
             backdrop-filter: blur(25px);
+          }
+
+          & h2 {
+            font-size: 32px;
+            margin: 0;
           }
         }
       }
