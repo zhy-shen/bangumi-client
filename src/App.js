@@ -48,29 +48,32 @@ function App({
         <Button key="expand" text={advanced} setText={setAdv} char="Toggle" display={svgs.expand} />
         <div className={"advanced-options" + ((advanced) ? " active" : "")}>
           <div className="advanced-category">
-            <label htmlFor="category">Category</label>
-            <select name="category" id="category" onChange={(e) => changeSelect(e, setCategory)} value={category} >
-              <option value="1">Book</option>
-              <option value="2">Anime</option>
-              <option value="3">Music</option>
-              <option value="4">Game</option>
-              <option value="5">Real</option>
-            </select>
+            <span htmlFor="category" className="select-label">Category</span>
+            <div className="select-wrapper">
+              <select name="category" id="category" aria-label="category" onChange={(e) => changeSelect(e, setCategory)} value={category} >
+                <option value="1">Book</option>
+                <option value="2">Anime</option>
+                <option value="3">Music</option>
+                <option value="4">Game</option>
+                <option value="5">Real</option>
+              </select>
+            </div>
           </div>
 
           <div className="advanced-count">
-            <label htmlFor="category">Count</label>
-            <select name="category" id="category" onChange={(e) => changeSelect(e, setCount)} value={count} >
-              <option value="5">5</option>
-              <option value="10">10</option>
-              <option value="15">15</option>
-              <option value="20">20</option>
-              <option value="25">25</option>
-            </select>
+            <span htmlFor="count" className="select-label">Count</span>
+            <div className="select-wrapper">
+              <select name="count" id="count" aria-label="count" onChange={(e) => changeSelect(e, setCount)} value={count} >
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+                <option value="25">25</option>
+              </select>
+            </div>
           </div>
         </div>
       </div>
-      <h1 className="search-string jp">{inputText}</h1>
       <BangumiResults
         inputText={inputText}
         setActive={setActiveResult}

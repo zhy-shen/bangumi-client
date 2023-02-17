@@ -53,6 +53,10 @@
     border-radius: 0;
   }
 
+  & .loading {
+    margin: auto;
+  }
+
   & .main-content {
     overflow: auto;
     border-radius: 15px;
@@ -101,7 +105,7 @@
       }
   
       & .infobox {
-        padding: 0 max(5vw, 20px);
+        padding: 0 max(5vw, 20px) max(5vw, 20px);
       }
     }
   }
@@ -190,6 +194,7 @@
     }
 
     & .info-details {
+      overflow-wrap: anywhere;
       margin: 0;
       align-self: center;
     }

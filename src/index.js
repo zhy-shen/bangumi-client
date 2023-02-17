@@ -8,19 +8,21 @@ import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
   document.querySelector("body").classList.add("night-mode");
 }
-      
-if (parseFloat(window.getComputedStyle(document.body).getPropertyValue("--l")) > 60 ) {
+
+if (parseFloat(window.getComputedStyle(document.body).getPropertyValue("--l")) > 60) {
   document.querySelector("body").classList.add("light");
 }
 
 //initial load
-window.addEventListener("load", function() {
+window.addEventListener("load", function () {
   window.history.pushState({}, "");
 })
 
 const root = ReactDOM.createRoot(document.getElementById("app"));
 root.render(
-  <App />
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
 );
 
 serviceWorkerRegistration.unregister();

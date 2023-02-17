@@ -45,6 +45,11 @@ const close =
     <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" fill="var(--text-color)"></path>
   </svg>
 
+const noImage = 
+  <svg class="icon missing-image" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="HideImageIcon">
+    <path d="M21 5c0-1.1-.9-2-2-2H5.83L21 18.17V5zM2.81 2.81 1.39 4.22 3 5.83V19c0 1.1.9 2 2 2h13.17l1.61 1.61 1.41-1.41L2.81 2.81zM6 17l3-4 2.25 3 .82-1.1 2.1 2.1H6z" fill="var(--text-color)"></path>
+  </svg>
+
 const svgs = {
   copy: copy,
   paste: paste,
@@ -53,7 +58,8 @@ const svgs = {
   sunMoon: sunMoon,
   translate: translate,
   expand: expand,
-  close: close
+  close: close,
+  noImage: noImage,
 }
 
 export default svgs;

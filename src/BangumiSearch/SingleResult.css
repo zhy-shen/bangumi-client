@@ -13,3 +13,25 @@
     margin: 5px 0;
   }
 }
+
+@media screen and (min-width: 320px) and (max-width: 560px) {
+  .bangumi-result {
+    width: 80vw;
+    max-width: none;
+    flex-direction: row;
+    gap: 20px;
+
+    & .image {
+      flex-basis: 35%;
+      display: flex;
+
+      & img {
+        height: 100%;
+      }
+    }
+
+    & .result-info {
+      flex-basis: 65%;
+    }
+  }
+}

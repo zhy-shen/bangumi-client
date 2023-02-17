@@ -12,6 +12,7 @@ function InfoPage({
 
   const [localID, setLocalID] = useState("");
   const [data, setData] = useState(activeResult);
+  const [url, setURL] = useState("");
 
   window.addEventListener("popstate", function () {
     window.history.pushState({}, "");
@@ -60,25 +61,33 @@ function InfoPage({
     var urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
 
     if (urlRegex.test(text)) {
-      return <div className="info-details">
-        <a className="info-details" href={text} target="_blank" rel="noopener noreferrer">{text}</a>
-      </div>;
+      return <a className="info-details" href={text} target="_blank" rel="noopener noreferrer">{text}</a>;
     }
 
     return <p className="info-details">{text}</p>;
   }
 
   useEffect(() => {
+    async function getSubject() {
+      try {
+        const url = "https://api.bgm.tv/v0/subjects/" + encodeURIComponent(id);
+
+        const response = await fetch(url);
+        const data = await response.json();
+        setData(data);
+        const imageURL = (data.images.large) ? data.images.large : "";
+        setURL(imageURL);
+      } catch (error) {
+        console.log('error: ' + error);
+      }
+    }
+
     if (id !== localID) {
       setLocalID(id);
-      const url = "https://api.bgm.tv/v0/subjects/" + encodeURIComponent(id);
-      fetch(url)
-        .then((response) => response.json())
-        .then((data) => {
-          setData(data);
-        });
+      getSubject();
     }
   }, [id])
+
 
   return (
     <div className={"info-popup" + (isActive ? " visible" : "")}>
@@ -86,12 +95,12 @@ function InfoPage({
         <div className="main-content">
           <div className="close-button" onClick={(e) => close(e)}>{svgs.close}</div>
           {(data.id !== id) ?
-            <h1>Loading...</h1>
+            <h1 className="loading">Loading...</h1>
             :
             <React.Fragment key="full">
               <div className="info-header">
                 <div className="image">
-                  <img alt={data.name} async src={data.images.large.replace(/^http:\/\//i, 'https://')} />
+                  <img alt={data.name} async src={url.replace(/^http:\/\//i, 'https://')} />
                 </div>
                 <div className="info-header-text">
                   <h1 className="jp">{data.name}</h1>
@@ -103,9 +112,7 @@ function InfoPage({
               <div className="infobox">
                 <div className="info-fragment">
                   <h4 className="info-name">Source</h4>
-                  <div className="info-details">
-                    <a className="info-details" href={"https://bgm.tv/subject/" + data.id} target="_blank" rel="noopener noreferrer">{"https://bgm.tv/subject/" + data.id}</a>
-                  </div>
+                  {infoMarkup("https://bgm.tv/subject/" + data.id)}
                 </div>
                 {infoBoxMarkup()}
               </div>

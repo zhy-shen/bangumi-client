@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import svgs from "../Common/svgs";
 import "./SingleResult.css"
 
 function SingleResult({
@@ -7,8 +8,7 @@ function SingleResult({
   setID,
 }) {
 
-  useEffect(() => {
-  }, [])
+  const imageURL = (result.images) ? result.images.common : "";
 
   function openResult() {
     setActive(result);
@@ -18,11 +18,14 @@ function SingleResult({
   return (
     <div className="bangumi-result" onClick={() => openResult()}>
       <div className="image">
-        <img alt={result.name} async src={result.images.common.replace(/^http:\/\//i, 'https://')} />
+        <img alt={result.name} async src={imageURL.replace(/^http:\/\//i, 'https://')} />
+        {svgs.noImage}
       </div>
-      <h2 className="jp">{result.name}</h2>
-      <h3>{result.name_cn}</h3>
-      <h3>{result.id}</h3>
+      <div className="result-info">
+        <h2 className="jp">{result.name}</h2>
+        <h3>{result.name_cn}</h3>
+        <h3>{result.id}</h3>
+      </div>
     </div>
   );
 }

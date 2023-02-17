@@ -47,21 +47,36 @@ main:has(.info-popup.visible) {
     display: flex;
   }
 
-  & select {
-    padding: 5px 10px;
-    background: var(--background-color);
-    color: var(--text-color);
-    border: none;
-    border-radius: 15px;
+  .select-wrapper {
+    position: relative;
 
-    & option {
-      padding: 5px 10px;
+    & .select-label {
+      display: flex;
+    }
+
+    & select {
+      appearance: none;
+      font-size: 16px;
+      padding: 5px 16px;
+      background: var(--background-color);
+      color: var(--text-color);
       border: none;
-      display: block;
-
-      &:hover {
-        background: red;
+      border-radius: 30px;
+      text-align: center;
+  
+      &:focus-visible {
+        outline: none;
+      }
+  
+      & option {
+        padding: 8px 16px;
+        border: none;
+        display: block;
       }
     }
   }
+}
+
+.icon.missing-image {
+  width: 50%;
 }

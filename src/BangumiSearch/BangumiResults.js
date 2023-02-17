@@ -22,17 +22,19 @@ function BangumiResults({
   }
 
   useEffect(() => {
-    const url = "https://api.bgm.tv/search/subject/" + encodeURIComponent(inputText) + "?type=" + encodeURIComponent(category) + "&responseGroup=small&max_results=" + encodeURIComponent(count);
-    console.log(url)
+    async function getResults() {
+      try {
+        const url = "https://api.bgm.tv/search/subject/" + encodeURIComponent(inputText) + "?type=" + encodeURIComponent(category) + "&responseGroup=small&max_results=" + encodeURIComponent(count);
 
-    fetch(url)
-      .then((response) => (response) ? response.json() : new Error(response.status))
-      .then((data) => {
+        const response = await fetch(url);
+        const data = await response.json();
         setLocalResults(data.list);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.log('error: ' + error);
-      });
+      }
+    }
+
+    getResults();
   }, [inputText, category, count])
 
   return (
