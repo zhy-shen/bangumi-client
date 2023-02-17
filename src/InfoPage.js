@@ -101,6 +101,7 @@ function InfoPage({
               <div className="info-header">
                 <div className="image">
                   <img alt={data.name} async src={url.replace(/^http:\/\//i, 'https://')} />
+                  {svgs.noImage}
                 </div>
                 <div className="info-header-text">
                   <h1 className="jp">{data.name}</h1>
