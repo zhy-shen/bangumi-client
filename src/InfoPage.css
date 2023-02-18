@@ -90,6 +90,7 @@
           flex-basis: unset;
           padding: 0 max(5vw, 20px) max(5vw, 20px);
           position: relative;
+          align-self: auto;
 
           &::before {
             position:absolute;
