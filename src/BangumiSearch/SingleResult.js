@@ -12,7 +12,7 @@ function SingleResult({
 
   function openResult() {
     setActive(result);
-    setID(result.id)
+    setID("subjects/" + result.id)
   }
 
   return (

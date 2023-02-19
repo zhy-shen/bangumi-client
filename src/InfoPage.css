@@ -177,27 +177,3 @@
     filter: var(--drop-shadow);
   }
 }
-
-.infobox {
-  & .info-fragment {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 10px;
-
-    & .info-name {
-      white-space: nowrap;
-      font-weight: 500;
-      margin: 0;
-      background: var(--text-color);
-      color: var(--background-color);
-      padding: 3px 6px;
-      margin-bottom: auto;
-    }
-
-    & .info-details {
-      overflow-wrap: anywhere;
-      margin: 0;
-      align-self: center;
-    }
-  }
-}

@@ -16,7 +16,7 @@
 
 @media screen and (min-width: 320px) and (max-width: 560px) {
   .bangumi-result {
-    width: 80vw;
+    width: calc(100vw - 70px);
     max-width: none;
     flex-direction: row;
     gap: 20px;

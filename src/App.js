@@ -62,6 +62,7 @@ function App({
       {(id !== 0) &&
         <InfoPage
           id={id}
+          setID={setID}
           activeResult={activeResult}
           setActiveResult={setActiveResult}
           isActive={active}
