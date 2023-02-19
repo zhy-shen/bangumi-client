@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import InfoBox from "./InfoBox"
-import InfoPageSub from "./InfoPageSub"
 import svgs from "./Common/svgs"
 import "./InfoPage.css"
 
@@ -8,6 +7,7 @@ function InfoPage({
   id,
   setID,
   history,
+  setHistory,
   activeResult,
   setActiveResult,
   isActive,
@@ -17,69 +17,98 @@ function InfoPage({
   const [localID, setLocalID] = useState("");
   const [data, setData] = useState("");
   const [url, setURL] = useState("");
-  
-  const [dataReady, setReady] = useState(false);
 
-  const [subID, setSubID] = useState(0);
-  const [activeSubID, setActiveSubID] = useState(0);
-  const [activeSub, setActiveSub] = useState(false);
+  const [dataReady, setReady] = useState(false);
 
   function close(e) {
     setActiveResult(0);
     setActive(false);
   }
 
-  function closeSub(e) {
-    setActiveSubID(0);
-    setActiveSub(false);
+  function safePop() {
+    if (history.length > 1) {
+      console.log(history);
+      return history.pop();
+    }
+    return "main";
+  }
 
-    console.log(history);
-    if (history[history.length - 1] !== "info-page") {
-      history.push("info-page");
+  function safePush() {
+    if (history[history.length - 1] !== id) {
+      console.log('pushed ' + id)
+      history.push(id);
+      console.log(history);
     }
   }
 
   useEffect(() => {
-    if (subID !== 0) {
-      setActiveSub(true);
-      
-      window.history.pushState({}, "");
-      window.history.pushState({}, "");
-    }
-  }, [subID])
-
-  useEffect(() => {
-    if (history[history.length - 1] !== "info-page") {
-      history.push("info-page");
-    }
-
     window.addEventListener("popstate", () => {
-      const pop = history.pop();
       console.log(history);
-      if (pop === "sub-page") {
-        closeSub();
+      let pop = safePop();
+      console.log("popped: " + pop);
+
+      if (pop !== "main" && hasID(pop)) {
+        console.log('setpop')
+        setID(pop);
+        setActive(true);
+        setActiveResult(getID(pop));
       }
-      else if (pop === "info-page") {
+      else {
         close();
       }
     })
   }, []);
 
+  function getID(id) {
+    if (id && id.match(/\/([^\/]+)\/?$/).length > 1) {
+      return id.match(/\/([^\/]+)\/?$/)[1];
+    }
+    return 0;
+  }
+
+  function hasID(id) {
+    return id && id.match(/\/([^\/]+)\/?$/).length > 1;
+  }
+
+  useEffect(() => {
+    if (isActive) safePush();
+  }, [isActive])
+
   useEffect(() => {
     setReady(false);
 
+    if (history.length == 0) {
+      history = ["main"];
+    }
+
+    safePush();
+
     async function getSubject() {
+      let urls = {};
       try {
-        const url = "https://api.bgm.tv/v0/" + id;
-        const response = await fetch(url);
-        const data = await response.json();
+        const mainUrl = "https://api.bgm.tv/v0/" + id;
+        urls.main = mainUrl;
 
         if (id.includes("subject")) {
           //get character info
           const characterURL = "https://api.bgm.tv/v0/" + id + "/characters";
-          const character = await fetch(characterURL);
-          const characterData = await character.json();
-          data.characters = characterData;
+          urls.characters = characterURL;
+        }
+
+        urls.relation = "https://api.bgm.tv/v0/" + id + "/subjects";
+
+        const requests = Object.values(urls).map((url) => fetch(url));
+        const responses = await Promise.all(requests);
+        const promises = responses.map(async (response) => await response.json());
+        const dataResponse = await Promise.all(promises);
+
+        let data = dataResponse[0];
+        if (urls.characters) {
+          data.characters = dataResponse[1];
+          data.relations = dataResponse[2];
+        }
+        else {
+          data.relations = dataResponse[1];
         }
 
         setData(data);
@@ -91,7 +120,7 @@ function InfoPage({
     }
 
     if (id !== localID) {
-      setLocalID(id.match(/\/([^\/]+)\/?$/)[1]);
+      setLocalID(getID(id));
       getSubject();
     }
   }, [id])
@@ -122,22 +151,12 @@ function InfoPage({
                     <p className="summary">{data.summary}</p>
                   </div>
                 </div>
-                <InfoBox id={id} setID={setSubID} setActive={setActiveSub} infobox={data.infobox} characters={data.characters} />
+                <InfoBox id={id} setID={setID} setActive={setActive} setActiveResult={setActiveResult} infobox={data.infobox} characters={data.characters} relations={data.relations} />
               </React.Fragment>}
           </div>
         </div>
         <div className="interaction-blocker" onClick={(e) => close(e)}></div>
       </div>
-      {(subID !== 0) &&
-        <InfoPageSub
-          id={subID}
-          setID={setSubID}
-          setActiveResult={setActiveSubID}
-          history={history}
-          activeSub={activeSub}
-          setActive={setActiveSub}
-        />
-      }
     </>
   );
 }

@@ -75,7 +75,8 @@
         
         & .image {
           flex-basis: unset;
-          height: min(120vw, 70vh);
+          max-height: min(120vw, 70vh);
+          min-height: 20%;
           position: sticky;
           z-index: -1;
           width: 100%;
@@ -83,9 +84,7 @@
 
           & img {
             border-radius: 0;
-          }
-
-          &.sub img {
+            margin-bottom: -15%;
             max-height: 130vh;
             object-position: top;
           }
@@ -137,6 +136,7 @@
       }
   
       & img {
+        border-radius: 15px;
         width: 100%;
         height: auto;
       }

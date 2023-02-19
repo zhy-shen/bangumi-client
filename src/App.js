@@ -35,7 +35,7 @@ function App({
       setActive(true);
 
       window.history.pushState({}, "");
-      window.history.pushState({ page: "info-page" }, "");
+      window.history.pushState({}, "");
     }
   }, [activeResult])
 
@@ -69,6 +69,7 @@ function App({
           id={id}
           setID={setID}
           history={history}
+          setHistory={setHistory}
           activeResult={activeResult}
           setActiveResult={setActiveResult}
           isActive={active}

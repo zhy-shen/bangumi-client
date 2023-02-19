@@ -7,6 +7,7 @@ function InfoBox({
   setActive,
   infobox,
   characters,
+  relations,
 }) {
 
   function returnValues(object) {
@@ -66,19 +67,34 @@ function InfoBox({
       return characters.map((character, index) => {
         if (character.actors.length > 0 && (character.relation == "主角" || character.relation == "配角") && index < 10) {
           return <div className="info-fragment character" onClick={() => setSubID("characters/" + character.id)}>
-          <img alt={character.name} loading="lazy" async src={character.images.medium.replace(/^http:\/\//i, 'https://')} />
-          <p className="info-name relation">{character.relation}</p>
+            <img alt={character.name} loading="lazy" async src={character.images.medium.replace(/^http:\/\//i, 'https://')} />
+            <p className="info-name relation">{character.relation}</p>
             <p className="info-details character">{character.name}</p>
             <p className="info-details actor">{"CV: " + character.actors[0].name}</p>
           </div>
         }
-      });  
+      });
+    }
+  }
+
+  function relationMarkup() {
+    if (relations) {
+      return relations.map((relation, index) => {
+        return <div className="info-fragment character" onClick={() => setSubID("subjects/" + relation.id)}>
+          { (relation.images) && <img alt={relation.name} loading="lazy" async src={relation.images.medium.replace(/^http:\/\//i, 'https://')} />}
+          { (relation.image) && <img alt={relation.name} loading="lazy" async src={relation.image.replace(/^http:\/\//i, 'https://')} />}
+          <p className="info-name relation">{relation.relation || relation.staff}</p>
+          <p className="info-details jp">{relation.name}</p>
+          {relation.name_cn && <p className="info-details">{relation.name_cn}</p>}
+        </div>
+      });
     }
   }
 
   return (
     <div className="infobox">
-      {characterMarkup()}
+    {characterMarkup()}
+      {relationMarkup()}
       <div className="info-fragment">
         <h4 className="info-name">Source</h4>
         {SourceLinkMarkup()}
