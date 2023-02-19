@@ -6,8 +6,6 @@ import "./InfoPage.css"
 function InfoPage({
   id,
   setID,
-  activeResult,
-  setActiveResult,
   isActive,
   setActive,
 }) {
@@ -16,21 +14,24 @@ function InfoPage({
   const [data, setData] = useState("");
   const [url, setURL] = useState("");
 
-  window.addEventListener("popstate", function () {
-    window.history.pushState({}, "");
-    close();
-  }, { once: true })
-
-  window.addEventListener("keydown", function (event) {
-    if (event.key === "Escape") {
-      close();
-    }
-  }, { once: true })
-
   function close(e) {
-    setActiveResult(0);
+    setID(0);
     setActive(false);
   }
+
+  useEffect(() => {
+    window.addEventListener("popstate", handleState)
+
+    function handleState(event) {
+      console.log("state-sub");
+      if (event.state.page === "info-page") {
+        window.removeEventListener("popstate", handleState);
+        close();
+      }
+    }
+
+    window.history.pushState({ page: "info-page" }, "");
+  }, []);
 
   useEffect(() => {
     document.querySelector(".main-content").scrollTop = 0;

@@ -21,17 +21,6 @@ function InfoPage({
   const [activeSub, setActiveSub] = useState(false);
   const [activeSubID, setActiveSubID] = useState(false);
 
-  window.addEventListener("popstate", function () {
-    window.history.pushState({}, "");
-    close();
-  }, { once: true })
-
-  window.addEventListener("keydown", function (event) {
-    if (event.key === "Escape") {
-      close();
-    }
-  }, { once: true })
-
   function close(e) {
     setActiveResult(0);
     setActive(false);
@@ -42,6 +31,27 @@ function InfoPage({
       setActiveSub(true);
     }
   }, [activeSub])
+
+  useEffect(() => {
+    window.addEventListener("popstate", handleState)
+
+    function handleState(event) {
+      console.log("state-info");
+      if (event.state.page === "main-page") {
+        close();
+        window.removeEventListener("popstate", handleState);
+      }
+    }
+  
+    // window.addEventListener("keydown", function key(event) {
+    //   if (event.key === "Escape") {
+    //     history.back();
+    //     close();
+    //   }
+    // });
+
+    window.history.pushState({ page: "main-page" }, "");
+  }, [])
 
   useEffect(() => {
     document.querySelector(".main-content").scrollTop = 0;
@@ -96,7 +106,7 @@ function InfoPage({
                     <p className="summary">{data.summary}</p>
                   </div>
                 </div>
-                <InfoBox id={data.id} setID={setSubID} infobox={data.infobox} characters={data.characters} />
+                <InfoBox id={data.id} setID={setSubID} setActive={setActiveSub} infobox={data.infobox} characters={data.characters} />
               </React.Fragment>}
           </div>
         </div>
@@ -106,8 +116,6 @@ function InfoPage({
         <InfoPageSub
           id={subID}
           setID={setSubID}
-          activeResult={activeResult}
-          setActiveResult={setActiveResult}
           isActive={activeSub}
           setActive={setActiveSub}
         />

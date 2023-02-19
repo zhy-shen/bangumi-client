@@ -4,6 +4,7 @@ import "./InfoBox.css"
 function InfoBox({
   id,
   setID,
+  setActive,
   infobox,
   characters,
 }) {
@@ -32,6 +33,11 @@ function InfoBox({
     }
   }
 
+  function setSubID(id) {
+    setActive(true);
+    setID(id);
+  }
+
   //test for links
   function infoMarkup(text) {
     var urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
@@ -47,7 +53,7 @@ function InfoBox({
     if (characters) {
       return characters.map((character) => {
         if (character.actors.length > 0) {
-          return <div className="info-fragment character" onClick={() => setID("characters/" + character.id)}>
+          return <div className="info-fragment character" onClick={() => setSubID("characters/" + character.id)}>
           <img alt={character.name} async src={character.images.medium.replace(/^http:\/\//i, 'https://')} />
           <p className="info-name relation">{character.relation}</p>
             <p className="info-details character">{character.name}</p>
