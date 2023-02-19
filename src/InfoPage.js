@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import InfoBox from "./InfoBox"
 import svgs from "./Common/svgs"
 import "./InfoPage.css"
@@ -14,49 +14,69 @@ function InfoPage({
   setActive,
 }) {
 
-  const [localID, setLocalID] = useState("");
+  const [localID, setLocalID] = useState(id);
   const [data, setData] = useState("");
   const [url, setURL] = useState("");
 
+  const refID = useRef(localID)
+
+  useEffect(() => {
+    refID.current = id;
+  }, [id]);
+
   const [dataReady, setReady] = useState(false);
 
-  function close(e) {
+  function close() {
+    clearHistory();
     setActiveResult(0);
     setActive(false);
   }
 
-  function safePop() {
+  function clearHistory() {
+    let string = "nonEmpty";
+
+    while (string !== "main") {
+      string = safePopHistory();
+    }
+  }
+
+  function safePopHistory() {
     if (history.length > 1) {
-      console.log(history);
       return history.pop();
     }
     return "main";
   }
 
+  function popHistory() {
+    let pop = safePopHistory();
+    if (pop === refID.current) {
+      return safePopHistory();
+    }
+    return pop;
+  }
+
   function safePush() {
-    if (history[history.length - 1] !== id) {
-      console.log('pushed ' + id)
+    if (history[history.length - 1] !== id && activeResult !== id && isActive) {
       history.push(id);
-      console.log(history);
     }
   }
 
   useEffect(() => {
-    window.addEventListener("popstate", () => {
-      console.log(history);
-      let pop = safePop();
-      console.log("popped: " + pop);
+    window.removeEventListener("popstate", handlePopstate, true)
+    window.addEventListener("popstate", handlePopstate, true)
 
-      if (pop !== "main" && hasID(pop)) {
-        console.log('setpop')
+    function handlePopstate() {
+      let pop = popHistory();
+
+      if (pop !== "main") {
         setID(pop);
         setActive(true);
-        setActiveResult(getID(pop));
+        setActiveResult(pop);
       }
       else {
         close();
       }
-    })
+    }
   }, []);
 
   function getID(id) {
@@ -66,24 +86,17 @@ function InfoPage({
     return 0;
   }
 
-  function hasID(id) {
-    return id && id.match(/\/([^\/]+)\/?$/).length > 1;
-  }
-
   useEffect(() => {
-    if (isActive) safePush();
+    safePush();
   }, [isActive])
 
   useEffect(() => {
+    setLocalID(id)
     setReady(false);
-
-    if (history.length == 0) {
-      history = ["main"];
-    }
 
     safePush();
 
-    async function getSubject() {
+    async function getSubject(id) {
       let urls = {};
       try {
         const mainUrl = "https://api.bgm.tv/v0/" + id;
@@ -119,14 +132,11 @@ function InfoPage({
       }
     }
 
-    if (id !== localID) {
-      setLocalID(getID(id));
-      getSubject();
-    }
+    getSubject(id);
   }, [id])
 
   useEffect(() => {
-    setReady(data.id == localID);
+    setReady(data.id == getID(localID));
   }, [data])
 
   return (
@@ -135,7 +145,7 @@ function InfoPage({
         <div className="info-wrapper">
           <div className="main-content">
             <div className="close-button" onClick={(e) => close(e)}>{svgs.close}</div>
-            {(!dataReady) ?
+            {((id !== 0) && !dataReady) ?
               <h1 className="loading">Loading...</h1>
               :
               <React.Fragment key="full">

@@ -65,12 +65,14 @@ function InfoBox({
   function characterMarkup() {
     if (characters) {
       return characters.map((character, index) => {
-        if (character.actors.length > 0 && (character.relation == "主角" || character.relation == "配角") && index < 10) {
+        if (character.actors.length > 0 && (character.relation == "主角" || character.relation == "配角") && index < 16) {
           return <div className="info-fragment character" onClick={() => setSubID("characters/" + character.id)}>
             <img alt={character.name} loading="lazy" async src={character.images.medium.replace(/^http:\/\//i, 'https://')} />
-            <p className="info-name relation">{character.relation}</p>
-            <p className="info-details character">{character.name}</p>
-            <p className="info-details actor">{"CV: " + character.actors[0].name}</p>
+            <div className="relation-info">
+              <p className="info-name relation">{character.relation}</p>
+              <p className="info-details character">{character.name}</p>
+              <p className="info-details actor">{"CV: " + character.actors[0].name}</p>
+            </div>
           </div>
         }
       });
@@ -80,12 +82,14 @@ function InfoBox({
   function relationMarkup() {
     if (relations) {
       return relations.map((relation, index) => {
-        return <div className="info-fragment character" onClick={() => setSubID("subjects/" + relation.id)}>
-          { (relation.images) && <img alt={relation.name} loading="lazy" async src={relation.images.medium.replace(/^http:\/\//i, 'https://')} />}
-          { (relation.image) && <img alt={relation.name} loading="lazy" async src={relation.image.replace(/^http:\/\//i, 'https://')} />}
-          <p className="info-name relation">{relation.relation || relation.staff}</p>
-          <p className="info-details jp">{relation.name}</p>
-          {relation.name_cn && <p className="info-details">{relation.name_cn}</p>}
+        return <div className="info-fragment character" onClick={() => setSubID("subjects/" + relation.id) && index < 10}>
+          {(relation.images) && <img alt={relation.name} loading="lazy" async src={relation.images.medium.replace(/^http:\/\//i, 'https://')} />}
+          {(relation.image) && <img alt={relation.name} loading="lazy" async src={relation.image.replace(/^http:\/\//i, 'https://')} />}
+          <div className="relation-info">
+            <p className="info-name relation">{relation.relation || relation.staff}</p>
+            <p className="info-details jp">{relation.name}</p>
+            {relation.name_cn && <p className="info-details">{relation.name_cn}</p>}
+          </div>
         </div>
       });
     }
@@ -93,13 +97,19 @@ function InfoBox({
 
   return (
     <div className="infobox">
-    {characterMarkup()}
-      {relationMarkup()}
-      <div className="info-fragment">
-        <h4 className="info-name">Source</h4>
-        {SourceLinkMarkup()}
+      <div className="text-info">
+        <div className="info-fragment">
+          <h4 className="info-name">Source</h4>
+          {SourceLinkMarkup()}
+        </div>
+        {infoBoxMarkup()}
       </div>
-      {infoBoxMarkup()}
+      <div className="section characters">
+        {characterMarkup()}
+      </div>
+      <div className="section relations">
+        {relationMarkup()}
+      </div>
     </div>
   );
 }

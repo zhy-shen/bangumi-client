@@ -32,7 +32,7 @@ function App({
 
   useEffect(() => {
     if (activeResult !== 0) {
-      setActive(true);
+      if (!active) setActive(true);
 
       window.history.pushState({}, "");
       window.history.pushState({}, "");
