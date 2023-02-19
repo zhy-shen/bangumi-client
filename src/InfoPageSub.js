@@ -85,7 +85,7 @@ function InfoPageSub({
                   <p className="summary">{data.summary}</p>
                 </div>
               </div>
-              <InfoBox id={data.id} setID={setID} infobox={data.infobox} characters={data.characters} />
+              <InfoBox id={id} setID={setID} infobox={data.infobox} characters={data.characters} />
             </React.Fragment>}
         </div>
       </div>

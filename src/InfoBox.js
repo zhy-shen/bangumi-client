@@ -49,6 +49,18 @@ function InfoBox({
     return <p className="info-details">{text}</p>;
   }
 
+  function SourceLinkMarkup() {
+    let base = "https://bgm.tv/";
+    if (id.includes("subjects/")) {
+      base += "subject/";
+    }
+    else if (id.includes("characters/")) {
+      base += "character/";
+    }
+
+    return infoMarkup(base += id.match(/\/([^\/]+)\/?$/)[1]);
+  }
+
   function characterMarkup() {
     if (characters) {
       return characters.map((character, index) => {
@@ -69,7 +81,7 @@ function InfoBox({
       {characterMarkup()}
       <div className="info-fragment">
         <h4 className="info-name">Source</h4>
-        {infoMarkup("https://bgm.tv/" + id)}
+        {SourceLinkMarkup()}
       </div>
       {infoBoxMarkup()}
     </div>

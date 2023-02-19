@@ -122,7 +122,7 @@ function InfoPage({
                     <p className="summary">{data.summary}</p>
                   </div>
                 </div>
-                <InfoBox id={data.id} setID={setSubID} setActive={setActiveSub} infobox={data.infobox} characters={data.characters} />
+                <InfoBox id={id} setID={setSubID} setActive={setActiveSub} infobox={data.infobox} characters={data.characters} />
               </React.Fragment>}
           </div>
         </div>
