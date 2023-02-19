@@ -3,43 +3,40 @@ import InfoBox from "./InfoBox"
 import svgs from "./Common/svgs"
 import "./InfoPage.css"
 
-function InfoPage({
+function InfoPageSub({
   id,
   setID,
-  isActive,
+  setActiveResult,
+  history,
+  activeSub,
   setActive,
 }) {
 
-  const [localID, setLocalID] = useState("");
+  const [localID, setLocalID] = useState("character/00000");
   const [data, setData] = useState("");
   const [url, setURL] = useState("");
+  
+  const [dataReady, setReady] = useState(false);
+
+  const [visible, setVisible] = useState(activeSub);
 
   function close(e) {
-    setID(0);
+    history.pop();
+    setActiveResult(0);
     setActive(false);
   }
 
   useEffect(() => {
-    window.addEventListener("popstate", handleState)
-
-    function handleState(event) {
-      console.log("state-sub");
-      if (event.state.page === "info-page") {
-        window.removeEventListener("popstate", handleState);
-        close();
-      }
-    }
-
-    window.history.pushState({ page: "info-page" }, "");
-  }, []);
+    setVisible(activeSub);
+    history.push("sub-page");
+  }, [activeSub])
 
   useEffect(() => {
-    document.querySelector(".main-content").scrollTop = 0;
+    setReady(false);
 
     async function getSubject() {
       try {
         const url = "https://api.bgm.tv/v0/" + id;
-        console.log(url)
         const response = await fetch(url);
         const data = await response.json();
         
@@ -60,22 +57,24 @@ function InfoPage({
     }
 
     if (id !== localID) {
-      setLocalID(id);
+      setLocalID(id.match(/\/([^\/]+)\/?$/)[1]);
       getSubject();
     }
   }, [id])
 
+  useEffect(() => {
+    setReady(data.id == localID);
+  }, [data])
+
   return (
-    <div className={"info-popup" + (isActive ? " visible" : "")}>
+    <div className={"info-popup subpage" + (visible ? " visible" : "")}>
       <div className="info-wrapper">
         <div className="main-content">
           <div className="close-button" onClick={(e) => close(e)}>{svgs.close}</div>
-          {(data.id === id.match(/\/([^\/]+)\/?$/)[1]) ?
-            <h1 className="loading">Loading...</h1>
-            :
-            <React.Fragment key="full">
+          {(!dataReady) ?
+            <h1 className="loading">Loading...</h1>:<React.Fragment key="full">
               <div className="info-header">
-                <div className="image">
+                <div className="image sub">
                   <img alt={data.name} async src={url.replace(/^http:\/\//i, 'https://')} />
                   {svgs.noImage}
                 </div>
@@ -94,4 +93,4 @@ function InfoPage({
     </div>
   );
 }
-export default InfoPage;
+export default InfoPageSub;

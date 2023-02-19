@@ -7,6 +7,7 @@ import "./InfoPage.css"
 function InfoPage({
   id,
   setID,
+  history,
   activeResult,
   setActiveResult,
   isActive,
@@ -16,45 +17,56 @@ function InfoPage({
   const [localID, setLocalID] = useState("");
   const [data, setData] = useState("");
   const [url, setURL] = useState("");
+  
+  const [dataReady, setReady] = useState(false);
 
   const [subID, setSubID] = useState(0);
+  const [activeSubID, setActiveSubID] = useState(0);
   const [activeSub, setActiveSub] = useState(false);
-  const [activeSubID, setActiveSubID] = useState(false);
 
   function close(e) {
     setActiveResult(0);
     setActive(false);
   }
 
+  function closeSub(e) {
+    setActiveSubID(0);
+    setActiveSub(false);
+
+    console.log(history);
+    if (history[history.length - 1] !== "info-page") {
+      history.push("info-page");
+    }
+  }
+
   useEffect(() => {
-    if (activeSubID !== 0) {
+    if (subID !== 0) {
       setActiveSub(true);
+      
+      window.history.pushState({}, "");
+      window.history.pushState({}, "");
     }
-  }, [activeSub])
+  }, [subID])
 
   useEffect(() => {
-    window.addEventListener("popstate", handleState)
+    if (history[history.length - 1] !== "info-page") {
+      history.push("info-page");
+    }
 
-    function handleState(event) {
-      console.log("state-info");
-      if (event.state.page === "main-page") {
-        close();
-        window.removeEventListener("popstate", handleState);
+    window.addEventListener("popstate", () => {
+      const pop = history.pop();
+      console.log(history);
+      if (pop === "sub-page") {
+        closeSub();
       }
-    }
-  
-    // window.addEventListener("keydown", function key(event) {
-    //   if (event.key === "Escape") {
-    //     history.back();
-    //     close();
-    //   }
-    // });
-
-    window.history.pushState({ page: "main-page" }, "");
-  }, [])
+      else if (pop === "info-page") {
+        close();
+      }
+    })
+  }, []);
 
   useEffect(() => {
-    document.querySelector(".main-content").scrollTop = 0;
+    setReady(false);
 
     async function getSubject() {
       try {
@@ -79,10 +91,14 @@ function InfoPage({
     }
 
     if (id !== localID) {
-      setLocalID(id);
+      setLocalID(id.match(/\/([^\/]+)\/?$/)[1]);
       getSubject();
     }
   }, [id])
+
+  useEffect(() => {
+    setReady(data.id == localID);
+  }, [data])
 
   return (
     <>
@@ -90,7 +106,7 @@ function InfoPage({
         <div className="info-wrapper">
           <div className="main-content">
             <div className="close-button" onClick={(e) => close(e)}>{svgs.close}</div>
-            {(data.id === id.match(/\/([^\/]+)\/?$/)[1]) ?
+            {(!dataReady) ?
               <h1 className="loading">Loading...</h1>
               :
               <React.Fragment key="full">
@@ -116,7 +132,9 @@ function InfoPage({
         <InfoPageSub
           id={subID}
           setID={setSubID}
-          isActive={activeSub}
+          setActiveResult={setActiveSubID}
+          history={history}
+          activeSub={activeSub}
           setActive={setActiveSub}
         />
       }

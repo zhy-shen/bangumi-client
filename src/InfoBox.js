@@ -51,10 +51,10 @@ function InfoBox({
 
   function characterMarkup() {
     if (characters) {
-      return characters.map((character) => {
-        if (character.actors.length > 0) {
+      return characters.map((character, index) => {
+        if (character.actors.length > 0 && (character.relation == "主角" || character.relation == "配角") && index < 10) {
           return <div className="info-fragment character" onClick={() => setSubID("characters/" + character.id)}>
-          <img alt={character.name} async src={character.images.medium.replace(/^http:\/\//i, 'https://')} />
+          <img alt={character.name} loading="lazy" async src={character.images.medium.replace(/^http:\/\//i, 'https://')} />
           <p className="info-name relation">{character.relation}</p>
             <p className="info-details character">{character.name}</p>
             <p className="info-details actor">{"CV: " + character.actors[0].name}</p>

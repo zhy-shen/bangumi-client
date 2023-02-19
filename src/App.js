@@ -23,6 +23,8 @@ function App({
   const [active, setActive] = useState(0);
   const [id, setID] = useState(0);
 
+  const [history, setHistory] = useState(["main"]);
+
   //Search Options
   const [advOpen, setAdvOpen] = useState(false);
   const [category, setCategory] = useState(2);
@@ -31,6 +33,9 @@ function App({
   useEffect(() => {
     if (activeResult !== 0) {
       setActive(true);
+
+      window.history.pushState({}, "");
+      window.history.pushState({ page: "info-page" }, "");
     }
   }, [activeResult])
 
@@ -63,6 +68,7 @@ function App({
         <InfoPage
           id={id}
           setID={setID}
+          history={history}
           activeResult={activeResult}
           setActiveResult={setActiveResult}
           isActive={active}

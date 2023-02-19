@@ -42,7 +42,7 @@
   display: flex;
   opacity: 0;
   
-  transition: transform 0.2s, opacity 0.2s, backdrop-filter 0.2s;
+  transition: all 0.2s;
   transform: scale(0.95);
 
   @media screen and (max-width: 650px) {
@@ -84,6 +84,11 @@
           & img {
             border-radius: 0;
           }
+
+          &.sub img {
+            max-height: 130vh;
+            object-position: top;
+          }
         }
     
         & .info-header-text {
@@ -118,11 +123,22 @@
     & .image {
       flex-basis: 40%;
       aspect-ratio: unset;
+
+      &:not(.sub) {
+        & img {
+          aspect-ratio: unset;
+        }
+      }
+
+      &.sub {
+        & img {
+          object-position: top;
+        }
+      }
   
       & img {
         width: 100%;
         height: auto;
-        aspect-ratio: unset;
       }
     }
 
@@ -130,8 +146,6 @@
       align-self: center;
       flex-basis: 60%;
     }
-
-    
 
     @media screen and (min-width: 650px) {
       & .image {
