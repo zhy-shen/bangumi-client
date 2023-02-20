@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import InfoBox from "./InfoBox"
-import svgs from "./Common/svgs"
+import InfoMain from "./InfoMain"
+import svgs from "../Common/svgs"
 import "./InfoPage.css"
 
 function InfoPage({
@@ -16,7 +16,6 @@ function InfoPage({
 
   const [localID, setLocalID] = useState(id);
   const [data, setData] = useState("");
-  const [url, setURL] = useState("");
 
   const refID = useRef(localID)
 
@@ -125,8 +124,6 @@ function InfoPage({
         }
 
         setData(data);
-        const imageURL = (data.images.large) ? data.images.large : "";
-        setURL(imageURL);
       } catch (error) {
         console.log('error: ' + error);
       }
@@ -149,19 +146,13 @@ function InfoPage({
               <h1 className="loading">Loading...</h1>
               :
               <React.Fragment key="full">
-                <div className="info-header">
-                  <div className="image">
-                    <img alt={data.name} async src={url.replace(/^http:\/\//i, 'https://')} />
-                    {svgs.noImage}
-                  </div>
-                  <div className="info-header-text">
-                    <h1 className="jp">{data.name}</h1>
-                    <h2>{data.name_cn}</h2>
-                    <h2>SubjectID: {data.id}</h2>
-                    <p className="summary">{data.summary}</p>
-                  </div>
-                </div>
-                <InfoBox id={id} setID={setID} setActive={setActive} setActiveResult={setActiveResult} infobox={data.infobox} characters={data.characters} relations={data.relations} />
+                <InfoMain
+                  id={id}
+                  setID={setID}
+                  setActive={setActive}
+                  setActiveResult={setActiveResult}
+                  data={data}
+                />
               </React.Fragment>}
           </div>
         </div>

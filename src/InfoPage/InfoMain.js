@@ -1,14 +1,19 @@
-import React, { useEffect, useState } from "react";
-import "./InfoBox.css"
+import React from "react";
+import svgs from "../Common/svgs"
+import "./InfoMain.css"
 
-function InfoBox({
+function InfoMain({
   id,
   setID,
   setActive,
-  infobox,
-  characters,
-  relations,
+  data,
+  data: {
+    infobox,
+    characters,
+    relations
+  }
 }) {
+  const imageURL = (data.images.large) ? data.images.large : "";
 
   function returnValues(object) {
     return object.map((entry) => {
@@ -65,7 +70,7 @@ function InfoBox({
   function characterMarkup() {
     if (characters) {
       return characters.map((character, index) => {
-        if (character.actors.length > 0 && (character.relation == "主角" || character.relation == "配角") && index < 16) {
+        if (character.actors.length > 0 && (character.relation == "主角" || character.relation == "配角") && index < 26) {
           return <div className="info-fragment character" onClick={() => setSubID("characters/" + character.id)}>
             <img alt={character.name} loading="lazy" async src={character.images.medium.replace(/^http:\/\//i, 'https://')} />
             <div className="relation-info">
@@ -82,7 +87,7 @@ function InfoBox({
   function relationMarkup() {
     if (relations) {
       return relations.map((relation, index) => {
-        return <div className="info-fragment character" onClick={() => setSubID("subjects/" + relation.id) && index < 10}>
+        return <div className="info-fragment related" onClick={() => setSubID("subjects/" + relation.id) && index < 10}>
           {(relation.images) && <img alt={relation.name} loading="lazy" async src={relation.images.medium.replace(/^http:\/\//i, 'https://')} />}
           {(relation.image) && <img alt={relation.name} loading="lazy" async src={relation.image.replace(/^http:\/\//i, 'https://')} />}
           <div className="relation-info">
@@ -96,21 +101,41 @@ function InfoBox({
   }
 
   return (
-    <div className="infobox">
-      <div className="text-info">
-        <div className="info-fragment">
-          <h4 className="info-name">Source</h4>
-          {SourceLinkMarkup()}
+    <>
+      <div className="info-header">
+        <div className="image">
+          <img alt={data.name} async src={imageURL.replace(/^http:\/\//i, 'https://')} />
+          {svgs.noImage}
         </div>
-        {infoBoxMarkup()}
+        <div className="info-header-text infobox">
+          <div>
+          <h1 className="jp">{data.name}</h1>
+          <h2>{data.name_cn}</h2>
+          <h2>SubjectID: {data.id}</h2>
+          <p className="summary">{data.summary}</p>
+          </div>
+
+          <div className="text-info">
+            <h2 class="jp">Info</h2>
+            <div className="info-fragment">
+              <h4 className="info-name">Source</h4>
+              {SourceLinkMarkup()}
+            </div>
+            {infoBoxMarkup()}
+          </div>
+        </div>
       </div>
-      <div className="section characters">
-        {characterMarkup()}
+      <div className="infobox">
+        <div className="section characters">
+          <h2 class="jp">Characters</h2>
+          {characterMarkup()}
+        </div>
+        <div className="section relations">
+          <h2 class="jp">Related</h2>
+          {relationMarkup()}
+        </div>
       </div>
-      <div className="section relations">
-        {relationMarkup()}
-      </div>
-    </div>
+    </>
   );
 }
-export default InfoBox;
+export default InfoMain;

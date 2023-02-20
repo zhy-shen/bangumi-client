@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import textArray from "./constants/defaultText"
 import BangumiResults from "./BangumiSearch/BangumiResults"
-import InfoPage from "./InfoPage";
+import InfoPage from "./InfoPage/InfoPage";
 import InputBox from "./InputBox";
 import OptionSelect from "./OptionSelect";
 import ColorControl from "./Common/ColorControl";

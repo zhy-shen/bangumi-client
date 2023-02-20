@@ -3,6 +3,7 @@
 }
 
 .image {
+  display: flex;
   aspect-ratio: 0.66;
   margin: 0;
   position: relative;
