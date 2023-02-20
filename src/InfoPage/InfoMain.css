@@ -41,12 +41,19 @@
       }
 
       & img {
+        transition: border-radius 0.1s;
+
         object-position: top;
         height: 150px;
       }
 
       &:hover {
         background: var(--text-color);
+
+        & img {
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+        }
 
         & .relation {
           background: var(--background-color);
@@ -120,6 +127,8 @@
       position: sticky;
       top: 0;
       height: fit-content;
+      min-height: 40vh;
+      height: min-content;
     }
 
     & .info-header-text {

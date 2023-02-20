@@ -35,7 +35,7 @@
   box-shadow: 0px 0px 5px #00000020;
   backdrop-filter: blur(25px);
   width: min(1800px, calc(90vw - 50px));
-  height: 80vh;
+  height: calc(90vh - 80px);
   padding: 40px;
   border-radius: 50px;
   position: relative;
