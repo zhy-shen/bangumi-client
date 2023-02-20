@@ -18,11 +18,11 @@ function SingleResult({
   return (
     <div className="bangumi-result" onClick={() => openResult()}>
       <div className="image">
-        <img alt={result.name} async src={imageURL.replace(/^http:\/\//i, 'https://')} />
+        <img alt={result.name} async loading="lazy" src={imageURL.replace(/^http:\/\//i, 'https://')} />
         {svgs.noImage}
       </div>
       <div className="result-info">
-        <h2 className="jp">{result.name}</h2>
+        <h2 className="jp">{result.name.replace(/&amp;/g, "&")}</h2>
         <h3>{result.name_cn}</h3>
         <h3>{result.id}</h3>
       </div>

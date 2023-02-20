@@ -30,6 +30,15 @@
     display: flex;
     gap: 10px;
 
+    & .entry {
+      display: flex;
+      flex-direction: column;
+
+      & > .info-details {
+        margin-right: auto;
+      }
+    }
+
     &.related,
     &.character {
       border-radius: 10px;

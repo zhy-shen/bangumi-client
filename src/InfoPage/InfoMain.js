@@ -92,7 +92,7 @@ function InfoMain({
           {(relation.image) && <img alt={relation.name} loading="lazy" async src={relation.image.replace(/^http:\/\//i, 'https://')} />}
           <div className="relation-info">
             <p className="info-name relation">{relation.relation || relation.staff}</p>
-            <p className="info-details jp">{relation.name}</p>
+            <p className="info-details jp">{relation.name.replace(/&amp;/g, "&")}</p>
             {relation.name_cn && <p className="info-details">{relation.name_cn}</p>}
           </div>
         </div>
@@ -104,12 +104,12 @@ function InfoMain({
     <>
       <div className="info-header">
         <div className="image">
-          <img alt={data.name} async src={imageURL.replace(/^http:\/\//i, 'https://')} />
+          <img alt={data.name} async loading="lazy" src={imageURL.replace(/^http:\/\//i, 'https://')} />
           {svgs.noImage}
         </div>
         <div className="info-header-text infobox">
           <div>
-          <h1 className="jp">{data.name}</h1>
+          <h1 className="jp">{data.name.replace(/&amp;/g, "&")}</h1>
           <h2>{data.name_cn}</h2>
           <h2>SubjectID: {data.id}</h2>
           <p className="summary">{data.summary}</p>
