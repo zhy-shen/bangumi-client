@@ -17,7 +17,9 @@ Array.prototype.random = function () {
 function App({
 
 }) {
-  const [inputText, setInputText] = useState(textArray.random());
+  let params = (new URL(document.location)).searchParams;
+
+  const [inputText, setInputText] = useState(params.get("search") || textArray.random());
   const [text, setText] = useState(inputText);
   const [activeResult, setActiveResult] = useState(0);
   const [active, setActive] = useState(0);
@@ -29,6 +31,15 @@ function App({
   const [advOpen, setAdvOpen] = useState(false);
   const [category, setCategory] = useState(2);
   const [count, setCount] = useState(5);
+
+  useEffect(() => {
+    if (params.get("type") && params.get("id")) {
+      const passedID = params.get("type") + "/" + params.get("id");
+      history.push(passedID);
+      setID(passedID);
+      setActive(true);
+    }
+  }, [])
 
   useEffect(() => {
     if (activeResult !== 0) {
