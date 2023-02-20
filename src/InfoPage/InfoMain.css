@@ -131,7 +131,7 @@
 }
 
 @media screen and (max-width: 650px) {
-  .info-box {
+  .infobox {
     padding: 0 max(5vw,20px) max(5vw,20px);
   }
 
