@@ -64,6 +64,15 @@ function InfoPage({
     window.removeEventListener("popstate", handlePopstate, true)
     window.addEventListener("popstate", handlePopstate, true)
 
+    window.removeEventListener("keydown", (event) => keyboardPop(event));
+    window.addEventListener("keydown", (event) => keyboardPop(event));
+
+    function keyboardPop(event) {
+      if (event.key === "Escape") {
+        handlePopstate();
+      }
+    }
+
     function handlePopstate() {
       let pop = popHistory();
 
