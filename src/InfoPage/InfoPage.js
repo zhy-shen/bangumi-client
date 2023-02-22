@@ -6,6 +6,7 @@ import "./InfoPage.css"
 function InfoPage({
   id,
   setID,
+  inputText,
   history,
   setHistory,
   activeResult,
@@ -18,10 +19,15 @@ function InfoPage({
   const [data, setData] = useState("");
 
   const refID = useRef(localID)
+  const active = useRef(isActive)
 
   useEffect(() => {
     refID.current = id;
   }, [id]);
+
+  useEffect(() => {
+    active.current = isActive;
+  }, [isActive]);
 
   const [dataReady, setReady] = useState(false);
 
@@ -74,6 +80,10 @@ function InfoPage({
     }
 
     function handlePopstate() {
+      if (active.current) {
+        window.history.pushState({}, '');
+      }
+      setURL();
       let pop = popHistory();
 
       if (pop !== "main") {
@@ -88,18 +98,31 @@ function InfoPage({
   }, []);
 
   function getID(id) {
-    if (id && id.match(/\/([^\/]+)\/?$/).length > 1) {
-      return id.match(/\/([^\/]+)\/?$/)[1];
+    if (id && id.split("/").length > 1) {
+      return id.split("/")[1];
     }
     return 0;
   }
 
+  function setURL() {
+    if (getID(id)) {
+      let url = "?s=" + encodeURI(inputText)
+      if (active.current) {
+        url += "&id=" + encodeURI(id);
+      }
+
+      window.history.replaceState({}, '', url);
+    }
+  }
+
   useEffect(() => {
     safePush();
+    setURL();
   }, [isActive])
 
   useEffect(() => {
-    setLocalID(id)
+    setURL();
+    setLocalID(id);
     setReady(false);
 
     safePush();

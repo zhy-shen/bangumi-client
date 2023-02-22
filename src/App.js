@@ -19,7 +19,7 @@ function App({
 }) {
   let params = (new URL(document.location)).searchParams;
 
-  const [inputText, setInputText] = useState(params.get("search") || textArray.random());
+  const [inputText, setInputText] = useState((params.get("s")) ? decodeURI(params.get("s")) : textArray.random());
   const [text, setText] = useState(inputText);
   const [activeResult, setActiveResult] = useState(0);
   const [active, setActive] = useState(0);
@@ -33,8 +33,8 @@ function App({
   const [count, setCount] = useState(5);
 
   useEffect(() => {
-    if (params.get("type") && params.get("id")) {
-      const passedID = params.get("type") + "/" + params.get("id");
+    if (params.get("id")) {
+      const passedID = decodeURI(params.get("id"));
       history.push(passedID);
       setID(passedID);
       setActive(true);
@@ -44,9 +44,6 @@ function App({
   useEffect(() => {
     if (activeResult !== 0) {
       if (!active) setActive(true);
-
-      window.history.pushState({}, "");
-      window.history.pushState({}, "");
     }
   }, [activeResult])
 
@@ -79,6 +76,7 @@ function App({
         <InfoPage
           id={id}
           setID={setID}
+          inputText={inputText}
           history={history}
           setHistory={setHistory}
           activeResult={activeResult}
