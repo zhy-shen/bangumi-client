@@ -24,7 +24,7 @@ function BangumiResults({
   useEffect(() => {
     async function getResults() {
       try {
-        const url = "https://api.bgm.tv/search/subject/" + encodeURIComponent(inputText) + "?type=" + encodeURIComponent(category) + "&responseGroup=small&max_results=" + encodeURIComponent(count);
+        const url = "https://api.bgm.tv/search/subject/" + inputText.encode() + "?type=" + category.encode() + "&responseGroup=small&max_results=" + count.encode();
 
         const response = await fetch(url);
         const data = await response.json();

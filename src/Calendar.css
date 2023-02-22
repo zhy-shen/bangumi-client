@@ -1,0 +1,48 @@
+.calendar-wrapper {
+  padding: 0 min(5vw, 40px) min(5vw, 40px);
+}
+
+.calendar {
+  display: flex;
+  gap: 20px;
+  overflow-x: scroll;
+  max-width: 100vw;
+  scroll-snap-type: x mandatory;
+
+  &::-webkit-scrollbar {
+    display: none;
+    scrollbar-width: none;  /* Firefox */
+  }
+
+  & .calendar-day {
+    flex-shrink: 0;
+    max-width: 400px;
+    scroll-snap-align: start;
+
+    & .weekday {
+      position: sticky;
+      top: 100px;
+    }
+
+    &:not(:last-child) {
+      & .entries {
+        border-right: 5px var(--text-color) solid;
+        padding-right: 10px;
+      }
+    }
+
+    &:last-child {
+      padding-right: 25px;
+    }
+
+    & .entries {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    & .info-fragment {
+      width: min(400px, 90vw);
+    }
+  }
+}

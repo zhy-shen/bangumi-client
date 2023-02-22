@@ -19,6 +19,22 @@ window.addEventListener("load", function () {
   window.history.pushState({}, "");
 })
 
+Array.prototype.random = function () {
+  return this[Math.floor((Math.random() * this.length))];
+}
+Number.prototype.encode = function () {
+  return encodeURIComponent(this);
+}
+String.prototype.encode = function () {
+  return encodeURIComponent(this);
+}
+String.prototype.filter = function () {
+  return this.replace(/&amp;/g, "&");
+}
+String.prototype.https = function () {
+  return this.replace(/^http:\/\//i, 'https://');
+}
+
 const root = ReactDOM.createRoot(document.getElementById("app"));
 root.render(
   //page routing breaks in strictmode
