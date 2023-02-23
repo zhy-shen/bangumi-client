@@ -35,7 +35,8 @@ function App({
   }
 
   if (!active) {
-    document.title = "Search: " + inputText;
+    const title = (inputText) ? "Search: " + inputText : "Bangumi Client";
+    document.title = title;
   }
 
   useEffect(() => {

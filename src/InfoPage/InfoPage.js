@@ -128,13 +128,12 @@ function InfoPage({
     safePush();
     setURL();
 
-    if (!isActive) {
-      document.title = "Search: " + inputText;
+    if (isActive && data.name) {
+      document.title = data.name.filter();
     }
     else {
-      if (data.name) {
-        document.title = data.name.filter();
-      }
+      const title = (inputText) ? "Search: " + inputText : "Bangumi Client";
+      document.title = title;
     }
   }, [isActive])
 
