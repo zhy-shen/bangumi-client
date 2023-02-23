@@ -61,7 +61,7 @@ function InfoPage({
   }
 
   function safePush() {
-    if (history[history.length - 1] !== id && activeResult !== id && isActive) {
+    if (history[history.length - 1] !== id && isActive) {
       history.push(id);
     }
   }
