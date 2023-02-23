@@ -50,6 +50,11 @@ const noImage =
     <path d="M21 5c0-1.1-.9-2-2-2H5.83L21 18.17V5zM2.81 2.81 1.39 4.22 3 5.83V19c0 1.1.9 2 2 2h13.17l1.61 1.61 1.41-1.41L2.81 2.81zM6 17l3-4 2.25 3 .82-1.1 2.1 2.1H6z" fill="var(--text-color)"></path>
   </svg>
 
+const refresh = 
+  <svg className="icon refresh" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="CachedIcon">
+    <path d="m19 8-4 4h3c0 3.31-2.69 6-6 6-1.01 0-1.97-.25-2.8-.7l-1.46 1.46C8.97 19.54 10.43 20 12 20c4.42 0 8-3.58 8-8h3l-4-4zM6 12c0-3.31 2.69-6 6-6 1.01 0 1.97.25 2.8.7l1.46-1.46C15.03 4.46 13.57 4 12 4c-4.42 0-8 3.58-8 8H1l4 4 4-4H6z" fill="var(--text-color)"></path>
+  </svg>
+
 const svgs = {
   copy: copy,
   paste: paste,
@@ -60,6 +65,7 @@ const svgs = {
   expand: expand,
   close: close,
   noImage: noImage,
+  refresh: refresh,
 }
 
 export default svgs;

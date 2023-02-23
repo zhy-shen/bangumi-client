@@ -4,7 +4,11 @@
   display: grid;
   grid-template-columns: repeat( auto-fit, 230px );
   padding: 0 40px;
-  margin: 30px 0 90px;
+  margin: 0;
+
+  &:has(.bangumi-result) {
+    margin: 30px 0 90px;
+  }
 
   & .bangumi-result img {
     width: 100%;

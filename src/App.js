@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react"
-import textArray from "./constants/defaultText"
 import BangumiResults from "./BangumiSearch/BangumiResults"
 import InfoPage from "./InfoPage/InfoPage";
 import AppHeader from "./AppHeader";
 import ColorControl from "./Common/ColorControl";
-import Calendar from "./Calendar";
+import Calendar from "./Calendar/Calendar";
 
 import "./App.css"
 
@@ -13,7 +12,7 @@ function App({
 }) {
   let params = (new URL(document.location)).searchParams;
 
-  const [inputText, setInputText] = useState((params.get("s")) ? decodeURI(params.get("s")) : textArray.random());
+  const [inputText, setInputText] = useState((params.get("s")) ? params.get("s").decode() : "");
   const [text, setText] = useState(inputText);
   const [activeResult, setActiveResult] = useState(0);
   const [active, setActive] = useState(0);
@@ -26,9 +25,26 @@ function App({
   const [category, setCategory] = useState(2);
   const [count, setCount] = useState(5);
 
+  function setURL() {
+    let url = "";
+    if (inputText !== "") {
+      url += "?s=" + inputText.encode();
+    }
+
+    window.history.replaceState({}, "", url || window.location.href.split("?")[0]);
+  }
+
+  if (!active) {
+    document.title = "Search: " + inputText;
+  }
+
+  useEffect(() => {
+    setURL();
+  }, [inputText])
+
   useEffect(() => {
     if (params.get("id")) {
-      const passedID = decodeURI(params.get("id"));
+      const passedID = params.get("id").decode();
       history.push(passedID);
       setID(passedID);
       setActive(true);
@@ -46,8 +62,10 @@ function App({
       <AppHeader
         text={text}
         setText={setText}
+        inputText={inputText}
         setInputText={setInputText}
         advOpen={advOpen}
+        setAdvOpen={setAdvOpen}
         category={category}
         setCategory={setCategory}
         count={count}
@@ -61,10 +79,12 @@ function App({
         category={category}
         count={count}
       />
-      <Calendar
-        setID={setID}
-        setActive={setActiveResult}
-      />
+      {(inputText === "") &&
+        <Calendar
+          setID={setID}
+          setActive={setActiveResult}
+        />
+      }
       {(id !== 0) &&
         <InfoPage
           id={id}

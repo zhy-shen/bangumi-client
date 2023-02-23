@@ -106,18 +106,36 @@ function InfoPage({
 
   function setURL() {
     if (getID(id)) {
-      let url = "?s=" + encodeURI(inputText)
+      let url = "";
+      if ((inputText !== "") || (active.current)) {
+        url += "?";
+      }
+      if (inputText !== "") {
+        url += "s=" + inputText.encode();
+      }
+      if (inputText !== "" && active.current) {
+        url += "&";
+      }
       if (active.current) {
-        url += "&id=" + encodeURI(id);
+        url += "id=" + id.encode();
       }
 
-      window.history.replaceState({}, '', url);
+      window.history.replaceState({}, "", url || window.location.href.split("?")[0]);
     }
   }
 
   useEffect(() => {
     safePush();
     setURL();
+
+    if (!isActive) {
+      document.title = "Search: " + inputText;
+    }
+    else {
+      if (data.name) {
+        document.title = data.name.filter();
+      }
+    }
   }, [isActive])
 
   useEffect(() => {
@@ -166,6 +184,10 @@ function InfoPage({
 
   useEffect(() => {
     setReady(data.id == getID(localID));
+
+    if (data.name) {
+      document.title = data.name.filter();
+    }
   }, [data])
 
   return (
@@ -177,15 +199,13 @@ function InfoPage({
             {((id !== 0) && !dataReady) ?
               <h1 className="loading">Loading...</h1>
               :
-              <React.Fragment key="full">
-                <InfoMain
-                  id={id}
-                  setID={setID}
-                  setActive={setActive}
-                  setActiveResult={setActiveResult}
-                  data={data}
-                />
-              </React.Fragment>}
+              <InfoMain
+                id={id}
+                setID={setID}
+                setActive={setActive}
+                setActiveResult={setActiveResult}
+                data={data}
+              />}
           </div>
         </div>
         <div className="interaction-blocker" onClick={(e) => close(e)}></div>

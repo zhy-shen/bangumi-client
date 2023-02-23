@@ -20,6 +20,7 @@ function Button({
     "Mode",
     "Translate",
     "Toggle",
+    "Refresh",
   ]
 
   function addChar() {
@@ -60,6 +61,10 @@ function Button({
 
     else if (spChar === "Toggle") {
       setText(!text);
+    }
+
+    else if (spChar === "Refresh") {
+      setText(text.random());
     }
 
     else if (spChar === "Translate") {

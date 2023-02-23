@@ -1,6 +1,10 @@
 import React from "react";
-import svgs from "../Common/svgs"
-import "./InfoMain.css"
+import CharacterMarkup from "./CharacterMarkup";
+import RelationMarkup from "./RelationMarkup";
+import InfoBoxText from "./InfoBoxText";
+import svgs from "../Common/svgs";
+import "./InfoMain.css";
+import "./InfoFragment.css";
 
 function InfoMain({
   id,
@@ -15,83 +19,39 @@ function InfoMain({
 }) {
   const imageURL = (data.images.large) ? data.images.large : "";
 
-  function returnValues(object) {
-    return object.map((entry) => {
-      return infoMarkup(Object.values(entry)[0]);
-    })
-  }
-
-  function infoBoxMarkup() {
-    if (infobox) {
-      return Object.values(infobox).map((info) => {
-        if (typeof info.value === 'object') {
-          return <div key={info.key} className="info-fragment">
-            <h4 className="info-name">{info.key}</h4>
-            <div className="entry">{returnValues(info.value)}</div>
-          </div>
-        }
-
-        return <div key={info.key} className="info-fragment">
-          <h4 className="info-name">{info.key}</h4>
-          {infoMarkup(info.value)}
-        </div>
-      });
-    }
-  }
-
   function setSubID(id) {
     setActive(true);
     setID(id);
   }
 
-  //test for links
-  function infoMarkup(text) {
-    var urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
-
-    if (urlRegex.test(text)) {
-      return <a key={text} className="info-details" href={text} target="_blank" rel="noopener noreferrer">{text}</a>;
+  function castOrder(relation) {
+    switch(relation) {
+      case "主角":
+      return 5;
+      case "配角":
+      return 4;
+      case "客串":
+      return 3;
     }
 
-    return <p key={text} className="info-details">{text}</p>;
-  }
-
-  function SourceLinkMarkup() {
-    let base = "https://bgm.tv/";
-    if (id.includes("subjects/")) {
-      base += "subject/";
-    }
-    else if (id.includes("characters/")) {
-      base += "character/";
-    }
-    return infoMarkup(base += id.match(/\/([^\/]+)\/?$/)[1]);
+    return 1;
   }
 
   function characterMarkup() {
+    console.log(characters)
+    characters.sort((a, b) => castOrder(a.relation) > castOrder(b.relation) ? -1 : castOrder(a.relation) < castOrder(b.relation) ? 1 : 0)
+    console.log(characters)
+
     return characters.map((character, index) => {
-      if (character.actors.length > 0 && (character.relation == "主角" || character.relation == "配角") && index < 26) {
-        return <div key={"characters/" + character.id} className="info-fragment character" onClick={() => setSubID("characters/" + character.id)}>
-          <img alt={character.name} loading="lazy" async src={character.images.medium.https()} />
-          <div className="relation-info">
-            <p className="info-name relation">{character.relation}</p>
-            <p className="info-details character">{character.name}</p>
-            <p className="info-details actor">{"CV: " + character.actors[0].name}</p>
-          </div>
-        </div>
+      if (character.actors.length > 0) {
+        return <CharacterMarkup key={"character/" + character.id} character={character} setSubID={setSubID} />
       }
     });
   }
 
   function relationMarkup() {
     return relations.map((relation, index) => {
-      return <div key={"subjects/" + relation.id} className="info-fragment related" onClick={() => setSubID("subjects/" + relation.id) && index < 10}>
-        {(relation.images) && <img alt={relation.name} loading="lazy" async src={relation.images.medium.https()} />}
-        {(relation.image) && <img alt={relation.name} loading="lazy" async src={relation.image.https()} />}
-        <div className="relation-info">
-          <p className="info-name relation">{relation.relation || relation.staff}</p>
-          <p className="info-details jp">{relation.name.filter()}</p>
-          {relation.name_cn && <p className="info-details">{relation.name_cn}</p>}
-        </div>
-      </div>
+      return <RelationMarkup key={"subjects/" + relation.id} relation={relation} setSubID={setSubID} />
     });
   }
 
@@ -110,12 +70,7 @@ function InfoMain({
             <p className="summary">{data.summary}</p>
           </div>
           <div className="text-info">
-            <h2 className="jp">Info</h2>
-            <div className="info-fragment">
-              <h4 className="info-name">Source</h4>
-              {SourceLinkMarkup()}
-            </div>
-            {infoBoxMarkup()}
+            {infobox && <InfoBoxText id={id} data={data} />}
           </div>
         </div>
       </div>

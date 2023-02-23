@@ -28,6 +28,9 @@ Number.prototype.encode = function () {
 String.prototype.encode = function () {
   return encodeURIComponent(this);
 }
+String.prototype.decode = function () {
+  return decodeURIComponent(this);
+}
 String.prototype.filter = function () {
   return this.replace(/&amp;/g, "&");
 }

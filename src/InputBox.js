@@ -4,11 +4,15 @@ import "./InputBox.css"
 function InputBox({
   text,
   setText,
+  inputText,
   setInputText
 }) {
 
   useEffect(() => {
-  }, [])
+    if (inputText !== text) {
+      setText(inputText);
+    }
+  }, [inputText])
 
   function handleText(e) {
     if (e.key === "Enter") {
