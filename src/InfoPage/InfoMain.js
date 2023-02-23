@@ -25,22 +25,13 @@ function InfoMain({
   }
 
   function castOrder(relation) {
-    switch(relation) {
-      case "主角":
-      return 5;
-      case "配角":
-      return 4;
-      case "客串":
-      return 3;
-    }
-
-    return 1;
+    const castOrder = ["主角", "配角", "客串"];
+    const index = castOrder.indexOf(relation);
+    return (index === -1) ? 999 : index;
   }
 
   function characterMarkup() {
-    console.log(characters)
-    characters.sort((a, b) => castOrder(a.relation) > castOrder(b.relation) ? -1 : castOrder(a.relation) < castOrder(b.relation) ? 1 : 0)
-    console.log(characters)
+    characters.sort((a, b) => castOrder(a.relation) < castOrder(b.relation) ? -1 : castOrder(a.relation) > castOrder(b.relation) ? 1 : 0)
 
     return characters.map((character, index) => {
       if (character.actors.length > 0) {
@@ -49,8 +40,16 @@ function InfoMain({
     });
   }
 
+  function relationOrder(relation) {
+    const castOrder = ["书籍", "片头曲", "片尾曲", "前传", "续集", "番外篇", "衍生", "角色歌", "游戏"];
+    const index = castOrder.indexOf(relation);
+    return (index === -1) ? 999 : index;
+  }
+
   function relationMarkup() {
-    return relations.map((relation, index) => {
+    relations.sort((a, b) => relationOrder(a.relation) < relationOrder(b.relation) ? -1 : relationOrder(a.relation) > relationOrder(b.relation) ? 1 : 0)
+
+    return relations.map((relation) => {
       return <RelationMarkup key={"subjects/" + relation.id} relation={relation} setSubID={setSubID} />
     });
   }
