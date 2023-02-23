@@ -6,8 +6,8 @@ function PersonMarkup({
 }) {
 
   return (
-    <div className="info-fragment person" onClick={() => setSubID("persons/" + person.id)}>
-      {(person.images) && <img alt={person.name} loading="lazy" async src={person.images.medium.https()} />}
+    <div className="info-fragment grid person" onClick={() => setSubID("persons/" + person.id)}>
+      {(person.images && person.images.medium) && <img alt={person.name} loading="lazy" async src={person.images.medium.https()} />}
       {(person.image) && <img alt={person.name} loading="lazy" async src={person.image.https()} />}
       <div className="person-info">
         <p className="info-name person">{person.relation || person.staff}</p>

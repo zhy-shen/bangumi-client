@@ -6,7 +6,7 @@ function RelationMarkup({
 }) {
 
   return (
-    <div className="info-fragment related" onClick={() => setSubID("subjects/" + relation.id)}>
+    <div className="info-fragment grid related" onClick={() => setSubID("subjects/" + relation.id)}>
       {(relation.images) && <img alt={relation.name} loading="lazy" async src={relation.images.medium.https()} />}
       {(relation.image) && <img alt={relation.name} loading="lazy" async src={relation.image.https()} />}
       <div className="relation-info">

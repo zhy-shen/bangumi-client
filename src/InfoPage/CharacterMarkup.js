@@ -6,7 +6,7 @@ function CharacterMarkup({
 }) {
 
   return (
-    <div className="info-fragment character" onClick={() => setSubID("characters/" + character.id)}>
+    <div className="info-fragment grid character" onClick={() => setSubID("characters/" + character.id)}>
       <img alt={character.name} loading="lazy" async src={character.images.medium.https()} />
       <div className="relation-info">
         <p className="info-name relation">{character.relation}</p>

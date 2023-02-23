@@ -63,26 +63,33 @@ function InfoMain({
     });
   }
 
-  function personOrder(relation) {
+  function personOrder(person) {
+    const relation = person.relation;
+    let value = 0;
+
     if (relation === "制作") {
       relation = "製作";
     }
 
     const castOrder = ["原作", "作者", "出版社", "连载杂志", "导演", "动画制作", "音乐制作", "脚本", "人物原案", "人物设定"];
     const index = castOrder.indexOf(relation);
-    return (index === -1) ? 9999 : index;
+
+    if (index === -1 && ! person.images.medium ) {
+      value += 500;
+    }
+
+    return (index === -1) ? 999 + value : index + value;
   }
 
   const filter = ["原作", "作者", "出版社", "连载杂志", "导演", "动画制作", "音乐制作", "脚本", "人物原案", "人物设定"]
 
   function personMarkup() {
-    persons.sort((a, b) => personOrder(a.relation) < personOrder(b.relation) ? -1 : personOrder(a.relation) > personOrder(b.relation) ? 1 : 0)
+    persons.sort((a, b) => a.relation < b.relation ? -1 : a.relation > b.relation ? 1 : 0)
+    persons.sort((a, b) => personOrder(a) < personOrder(b) ? -1 : personOrder(a) > personOrder(b) ? 1 : 0)
 
     return persons.map((person) => {
-      if (id.includes("subjects")) {
-        if (person.images.medium && filter.includes(person.relation)) {
-          return <PersonMarkup key={"persons/" + person.id + person.relation} person={person} setSubID={setSubID} />
-        }
+      if (true) {
+        return <PersonMarkup key={"persons/" + person.id + person.relation} person={person} setSubID={setSubID} />
       }
     });
   }
