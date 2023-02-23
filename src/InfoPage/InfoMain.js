@@ -1,5 +1,6 @@
 import React from "react";
 import CharacterMarkup from "./CharacterMarkup";
+import PersonMarkup from "./PersonMarkup";
 import RelationMarkup from "./RelationMarkup";
 import InfoBoxText from "./InfoBoxText";
 import svgs from "../Common/svgs";
@@ -14,6 +15,7 @@ function InfoMain({
   data: {
     infobox,
     characters,
+    persons,
     relations
   }
 }) {
@@ -41,16 +43,47 @@ function InfoMain({
   }
 
   function relationOrder(relation) {
-    const castOrder = ["书籍", "片头曲", "片尾曲", "前传", "续集", "番外篇", "衍生", "角色歌", "游戏"];
+    if (relation === "制作") {
+      relation = "製作";
+    }
+
+    const castOrder = ["书籍", "片头曲", "片尾曲", "前传", "续集", "番外篇", "衍生", "角色歌", "游戏",
+      "原作", "作者", "出版社", "连载杂志", 
+      "导演", "动画制作", "音乐制作", 
+      "脚本", "系列构成", "人物原案", "人物设定", "总作画监督", "作画监督", "原画"];
     const index = castOrder.indexOf(relation);
-    return (index === -1) ? 999 : index;
+    return (index === -1) ? 9999 : index;
   }
 
   function relationMarkup() {
-    relations.sort((a, b) => relationOrder(a.relation) < relationOrder(b.relation) ? -1 : relationOrder(a.relation) > relationOrder(b.relation) ? 1 : 0)
+    relations.sort((a, b) => relationOrder(a.relation || a.staff) < relationOrder(b.relation || b.staff) ? -1 : relationOrder(a.relation || a.staff) > relationOrder(b.relation || b.staff) ? 1 : 0)
 
     return relations.map((relation) => {
-      return <RelationMarkup key={"subjects/" + relation.id} relation={relation} setSubID={setSubID} />
+      return <RelationMarkup key={"subjects/" + relation.id + (relation.relation || relation.staff)} relation={relation} setSubID={setSubID} />
+    });
+  }
+
+  function personOrder(relation) {
+    if (relation === "制作") {
+      relation = "製作";
+    }
+
+    const castOrder = ["原作", "作者", "出版社", "连载杂志", "导演", "动画制作", "音乐制作", "脚本", "人物原案", "人物设定"];
+    const index = castOrder.indexOf(relation);
+    return (index === -1) ? 9999 : index;
+  }
+
+  const filter = ["原作", "作者", "出版社", "连载杂志", "导演", "动画制作", "音乐制作", "脚本", "人物原案", "人物设定"]
+
+  function personMarkup() {
+    persons.sort((a, b) => personOrder(a.relation) < personOrder(b.relation) ? -1 : personOrder(a.relation) > personOrder(b.relation) ? 1 : 0)
+
+    return persons.map((person) => {
+      if (id.includes("subjects")) {
+        if (person.images.medium && filter.includes(person.relation)) {
+          return <PersonMarkup key={"persons/" + person.id + person.relation} person={person} setSubID={setSubID} />
+        }
+      }
     });
   }
 
@@ -82,8 +115,14 @@ function InfoMain({
         }
         {(relations && relations.length > 0) &&
           <div className="section relations">
-            <h2 className="jp">Related</h2>
+            <h2 className="jp">Related Works</h2>
             {relationMarkup()}
+          </div>
+        }
+        {(persons && persons.length > 0) &&
+          <div className="section persons">
+            <h2 className="jp">Related People</h2>
+            {personMarkup()}
           </div>
         }
       </div>

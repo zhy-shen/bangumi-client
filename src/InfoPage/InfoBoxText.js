@@ -11,20 +11,11 @@ function InfoMain({
     infobox,
   }
 }) {
-  const imageURL = (data.images.large) ? data.images.large : "";
 
   function returnValues(object) {
     return object.map((entry) => {
       return infoMarkup(Object.values(entry)[0]);
     })
-  }
-
-  function infoBox() {
-    if (infobox) {
-      return <>
-
-      </>
-    }
   }
 
   function infoBoxMarkup() {
@@ -62,22 +53,45 @@ function InfoMain({
     else if (id.includes("characters/")) {
       base += "character/";
     }
+    else if (id.includes("persons/")) {
+      base += "person/";
+    }
     return infoMarkup(base += id.match(/\/([^\/]+)\/?$/)[1]);
+  }
+
+  function getScoreText() {
+    let text = "";
+    if (data.rating) {
+      text += data.rating.score.toFixed(1) + " (" + data.rating.total + ")";
+      if (data.rating.rank !== 0) {
+        text += "  /  Rank: #" + data.rating.rank;
+      }
+    }
+    return text;
+  }
+
+  function getScoreTag() {
+    if (data.rating) {
+      if (data.rating.rank !== 0) {
+        return "评分 / 排名";
+      }
+    }
+    return "评分";
   }
 
   return (
     <>
       <h2 className="jp">信息</h2>
       <div className="info-fragment">
-        <h4 className="info-name">原链接</h4>
+        <h4 className="info-name">Source</h4>
         {SourceLinkMarkup()}
       </div>
       {data.rating &&
         <div className="info-fragment">
-          <h4 className="info-name">评分 / 排名</h4>
-          {data.rating && <p className="info-details">{data.rating.score.toFixed(1) + " (" + data.rating.total + ")  /  Rank: #" + data.rating.rank}</p>}
+          <h4 className="info-name">{getScoreTag()}</h4>
+          {data.rating && <p className="info-details">{getScoreText()}</p>}
         </div>}
-      {data.total_episodes &&
+      {(data.total_episodes && data.total_episodes !== 0) &&
         <div className="info-fragment">
           <h4 className="info-name">总集数</h4>
           {data.total_episodes && <p className="info-details">{data.total_episodes}</p>}

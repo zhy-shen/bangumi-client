@@ -157,6 +157,7 @@ function InfoPage({
         }
 
         urls.relation = "https://api.bgm.tv/v0/" + id + "/subjects";
+        urls.persons = "https://api.bgm.tv/v0/" + id + "/persons";
 
         const requests = Object.values(urls).map((url) => fetch(url));
         const responses = await Promise.all(requests);
@@ -167,9 +168,11 @@ function InfoPage({
         if (urls.characters) {
           data.characters = dataResponse[1];
           data.relations = dataResponse[2];
+          data.persons = dataResponse[3];
         }
         else {
           data.relations = dataResponse[1];
+          data.persons = dataResponse[2];
         }
 
         setData(data);

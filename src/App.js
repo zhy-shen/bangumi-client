@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import BangumiResults from "./BangumiSearch/BangumiResults"
 import InfoPage from "./InfoPage/InfoPage";
-import AppHeader from "./AppHeader";
+import AppHeader from "./Header/AppHeader";
 import ColorControl from "./Common/ColorControl";
 import Calendar from "./Calendar/Calendar";
 

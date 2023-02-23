@@ -1,9 +1,9 @@
 import React from "react"
 import InputBox from "./InputBox";
 import OptionSelect from "./OptionSelect";
-import Button from "./Common/Button"
-import svgs from "./Common/svgs"
-import textArray from "./Common/defaultText"
+import Button from "../Common/Button"
+import svgs from "../Common/svgs"
+import textArray from "../Common/defaultText"
 
 function AppHeader({
   text,
@@ -17,8 +17,6 @@ function AppHeader({
   count,
   setCount,
 }) {
-
-
   
   return (
     <div className="header">
