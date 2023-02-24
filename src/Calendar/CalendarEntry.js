@@ -6,7 +6,7 @@ function CalendarEntry({
 }) {
 
   return (
-    <div className="info-fragment related" onClick={() => setSubID("subjects/" + entry.id)}>
+    <div className="info-fragment grid related" onClick={() => setSubID("subjects/" + entry.id)}>
       {(entry.images) && <img alt={entry.name} loading="lazy" async src={entry.images.medium.https()} />}
       {(entry.image) && <img alt={entry.name} loading="lazy" async src={entry.image.https()} />}
       <div className="entry-info">

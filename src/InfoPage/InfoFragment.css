@@ -60,6 +60,13 @@
     }
   }
 
+  &.grid {
+    & .info-name {
+      width: fit-content;
+      margin-bottom: 5px;
+    }
+  }
+
   & .info-name {
     white-space: nowrap;
     font-weight: 500;
@@ -68,11 +75,6 @@
     color: var(--background-color);
     padding: 3px 6px;
     margin-bottom: auto;
-
-    &.grid {
-      width: fit-content;
-      margin-bottom: 5px;
-    }
   }
 
   & .info-details {

@@ -43,13 +43,9 @@ function InfoMain({
   }
 
   function relationOrder(relation) {
-    if (relation === "制作") {
-      relation = "製作";
-    }
-
     const castOrder = ["书籍", "片头曲", "片尾曲", "前传", "续集", "番外篇", "衍生", "角色歌", "游戏",
       "原作", "作者", "出版社", "连载杂志", 
-      "导演", "动画制作", "音乐制作", 
+      "导演", "动画制作", "音乐制作",
       "脚本", "系列构成", "人物原案", "人物设定", "总作画监督", "作画监督", "原画"];
     const index = castOrder.indexOf(relation);
     return (index === -1) ? 9999 : index;
@@ -66,10 +62,6 @@ function InfoMain({
   function personOrder(person) {
     const relation = person.relation;
     let value = 0;
-
-    if (relation === "制作") {
-      relation = "製作";
-    }
 
     const castOrder = ["原作", "作者", "出版社", "连载杂志", "导演", "动画制作", "音乐制作", "脚本", "人物原案", "人物设定"];
     const index = castOrder.indexOf(relation);
