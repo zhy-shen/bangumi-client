@@ -10,7 +10,7 @@ function InfoMain({
 }) {
 
   function returnValues(object) {
-    if (id.includes("persons/") && object.key === "别名") {
+    if ((id.includes("persons/") || id.includes("characters/")) && object.key === "别名") {
       return object.value.map((entry) => {
         return infoMarkup(entry.v);
       })
