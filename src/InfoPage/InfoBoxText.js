@@ -1,8 +1,5 @@
 import React from "react";
-import CharacterMarkup from "./CharacterMarkup"
-import svgs from "../Common/svgs"
 import "./InfoMain.css"
-import RelationMarkup from "./RelationMarkup";
 
 function InfoMain({
   id,
@@ -13,7 +10,12 @@ function InfoMain({
 }) {
 
   function returnValues(object) {
-    return object.map((entry) => {
+    if (id.includes("persons/") && object.key === "别名") {
+      return object.value.map((entry) => {
+        return infoMarkup(entry.v);
+      })
+    }
+    return object.value.map((entry) => {
       return infoMarkup(Object.values(entry)[0]);
     })
   }
@@ -23,7 +25,7 @@ function InfoMain({
       if (typeof info.value === 'object') {
         return <div key={info.key} className="info-fragment">
           <h4 className="info-name">{info.key}</h4>
-          <div className="entry">{returnValues(info.value)}</div>
+          <div className="entry">{returnValues(info)}</div>
         </div>
       }
 
@@ -46,7 +48,7 @@ function InfoMain({
   }
 
   function SourceLinkMarkup() {
-    let base = "https://bgm.tv/";
+    let base = "https://bangumi.tv/";
     if (id.includes("subjects/")) {
       base += "subject/";
     }
