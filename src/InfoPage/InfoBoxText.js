@@ -88,12 +88,12 @@ function InfoMain({
         <h4 className="info-name">Source</h4>
         {SourceLinkMarkup()}
       </div>
-      {data.rating &&
+      {!!data.rating &&
         <div className="info-fragment">
           <h4 className="info-name">{getScoreTag()}</h4>
           {data.rating && <p className="info-details">{getScoreText()}</p>}
         </div>}
-      {(data.total_episodes && data.total_episodes !== 0) &&
+      {!!(data.total_episodes && data.total_episodes !== 0) &&
         <div className="info-fragment">
           <h4 className="info-name">总集数</h4>
           {data.total_episodes && <p className="info-details">{data.total_episodes}</p>}

@@ -106,19 +106,19 @@ function InfoMain({
         </div>
       </div>
       <div className="infobox">
-        {(characters && characters.length > 0) &&
+        {!!(characters && characters.length > 0) &&
           <div className="section characters">
             <h2 className="jp">Characters</h2>
             {characterMarkup()}
           </div>
         }
-        {(relations && relations.length > 0) &&
+        {!!(relations && relations.length > 0) &&
           <div className="section relations">
             <h2 className="jp">Related Works</h2>
             {relationMarkup()}
           </div>
         }
-        {(persons && persons.length > 0) &&
+        {!!(persons && persons.length > 0) &&
           <div className="section persons">
             <h2 className="jp">Related People</h2>
             {personMarkup()}
